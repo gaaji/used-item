@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JpaUsedItemPostRepository extends JpaRepository<UsedItemPost, UsedItemPostId> {
 
-	Long deleteBySellerIdAndUsedItemPostId(SellerId sellerId, UsedItemPostId usedItemPostId);
+	Long deleteBySellerIdAndPostId(SellerId sellerId, UsedItemPostId PostId);
 	
 }

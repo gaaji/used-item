@@ -25,6 +25,7 @@ public class UsedItemDeleteServiceImpl implements UsedItemDeleteService {
 			usedItemPostCounterRepository.delete(UsedItemPostId.of(postId));
 		} else {
 			//TODO 에러 발생
+			throw new RuntimeException();
 		}
 		
 	}

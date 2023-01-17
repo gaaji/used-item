@@ -15,7 +15,7 @@ public class UsedItemPostRepositoryImpl implements
 
 	@Override
 	public Long delete(SellerId sellerId, UsedItemPostId usedItemPostId) {
-		return jpaUsedItemPostRepository.deleteBySellerIdAndUsedItemPostId(sellerId, usedItemPostId);
+		return jpaUsedItemPostRepository.deleteBySellerIdAndPostId(sellerId, usedItemPostId);
 	}
 
 }

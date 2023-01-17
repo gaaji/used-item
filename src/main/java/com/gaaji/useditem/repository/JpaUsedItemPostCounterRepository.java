@@ -5,5 +5,4 @@ import com.gaaji.useditem.domain.UsedItemPostId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JpaUsedItemPostCounterRepository extends JpaRepository<UsedItemPostCounter, UsedItemPostId> {
-	void deleteById(String Id);
 }
