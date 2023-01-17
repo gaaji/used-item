@@ -56,10 +56,10 @@ public class UsedItemPost {
 
     public static UsedItemPost of(UsedItemPostId postId, SellerId sellerId, Post post,
     Price price, boolean canSuggest, WishPlace wishPlace,
-            TradeStatus tradeStatus,PurchaserId purchaserId, Town town, List<UsedItemPicture> pictures){
+            PurchaserId purchaserId, Town town, List<UsedItemPicture> pictures){
         return new UsedItemPost(postId,sellerId,post,price
                 ,canSuggest,wishPlace
-                ,tradeStatus,purchaserId
+                ,TradeStatus.SELLING,purchaserId
                 ,town,pictures);
     }
     // 글 내용이 바뀐다.
