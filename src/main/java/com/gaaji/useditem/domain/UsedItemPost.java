@@ -2,6 +2,7 @@ package com.gaaji.useditem.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -75,5 +76,32 @@ public class UsedItemPost {
 
     public void reverseHide(){
         post.reverseHide();
+    }
+
+    public String getUsedItemPostId() {
+        return postId.getId();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UsedItemPost that = (UsedItemPost) o;
+        return canSuggest == that.canSuggest && Objects.equals(postId, that.postId)
+                && Objects.equals(sellerId, that.sellerId) && Objects.equals(post,
+                that.post) && Objects.equals(price, that.price) && Objects.equals(
+                wishPlace, that.wishPlace) && tradeStatus == that.tradeStatus
+                && Objects.equals(purchaserId, that.purchaserId) && Objects.equals(
+                town, that.town) && Objects.equals(pictures, that.pictures);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(postId, sellerId, post, price, canSuggest, wishPlace, tradeStatus,
+                purchaserId, town, pictures);
     }
 }
