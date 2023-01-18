@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
 @Embeddable
 public class UsedItemPictureId implements Serializable {
 

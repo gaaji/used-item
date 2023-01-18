@@ -1,6 +1,9 @@
 package com.gaaji.useditem.domain;
 
 import java.io.Serializable;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
