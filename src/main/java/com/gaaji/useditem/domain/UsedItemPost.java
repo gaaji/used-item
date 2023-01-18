@@ -84,6 +84,5 @@ public class UsedItemPost {
 	public boolean getIsHide() {
 		return post.getIsHide();
 	}
-	
     
 }

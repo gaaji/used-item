@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
@@ -24,7 +25,6 @@ public class UsedItemReverseHideServiceImpl implements UsedItemReverseHideServic
 		UsedItemPost usedItemPost = this.usedItemPostRepository.findById(UsedItemPostId.of(postId)).orElseThrow(() -> new RuntimeException()); //TODO 여기도 예외 처리
 		if(usedItemPost.checkSellerId(authId)) {
 			usedItemPost.reverseHide();
-			this.usedItemPostRepository.updateHide(UsedItemPostId.of(postId), usedItemPost.getIsHide());
 		} else {
 			//TODO 틀리면 에러 발생
 		}
