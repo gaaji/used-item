@@ -56,4 +56,8 @@ public class Post {
     public int hashCode() {
         return Objects.hash(title, contents, category, createdAt, isHide);
     }
+	public boolean getIsHide() {
+		return isHide;
+	}
+
 }

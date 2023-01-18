@@ -15,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -104,4 +105,12 @@ public class UsedItemPost {
         return Objects.hash(postId, sellerId, post, price, canSuggest, wishPlace, tradeStatus,
                 purchaserId, town, pictures);
     }
+	public boolean checkSellerId(String authId) {
+		return this.sellerId.getId().equals(authId);
+	}
+
+	public boolean getIsHide() {
+		return post.getIsHide();
+	}
+
 }
