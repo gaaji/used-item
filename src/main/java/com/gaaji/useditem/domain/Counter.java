@@ -1,9 +1,8 @@
 package com.gaaji.useditem.domain;
 
-import javax.persistence.Column;
+import java.util.Objects;
 import javax.persistence.Embeddable;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,5 +20,23 @@ public class Counter {
     }
     public void increaseViewCount(){
         viewCount++;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Counter counter = (Counter) o;
+        return suggestCount == counter.suggestCount && interestCount == counter.interestCount
+                && viewCount == counter.viewCount && chatCount == counter.chatCount;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(suggestCount, interestCount, viewCount, chatCount);
     }
 }

@@ -1,5 +1,8 @@
 package com.gaaji.useditem.repository;
 
+import com.gaaji.useditem.domain.UsedItemPost;
+import com.gaaji.useditem.domain.UsedItemPostId;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -18,6 +21,15 @@ public class UsedItemPostRepositoryImpl implements
 
     private final JpaUsedItemPostRepository jpaUsedItemPostRepository;
 
+    @Override
+    public Optional<UsedItemPost> findByPostId(UsedItemPostId postId) {
+        return jpaUsedItemPostRepository.findById(postId);
+    }
+
+    @Override
+    public void save(UsedItemPost usedItemPost) {
+        jpaUsedItemPostRepository.save(usedItemPost);
+    }
 	@Override
 	public Long delete(SellerId sellerId, UsedItemPostId usedItemPostId) {
 		return jpaUsedItemPostRepository.deleteBySellerIdAndPostId(sellerId, usedItemPostId);
