@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.UsedItemPostId;
+import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.UsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 
@@ -24,7 +25,7 @@ public class UsedItemDeleteServiceImpl implements UsedItemDeleteService {
 		if(usedItemPostRepository.delete(SellerId.of(authId), UsedItemPostId.of(postId))==1) {
 			usedItemPostCounterRepository.delete(UsedItemPostId.of(postId));
 		} else {
-			throw new RuntimeException();
+			throw new NoSearchPostException();
 		}
 		
 	}

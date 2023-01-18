@@ -24,7 +24,7 @@ public class UsedItemPostCounter {
         return new UsedItemPostCounter(usedItemPostId,counter);
     }
 
-    public String getUsedItemPostId() {
+    public String getUsedItemPostIdToString() {
         return usedItemPostId.getId();
     }
     public void increaseViewCount(){

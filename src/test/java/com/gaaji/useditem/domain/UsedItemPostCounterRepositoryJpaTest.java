@@ -26,7 +26,7 @@ class UsedItemPostCounterRepositoryJpaTest {
                 .orElseThrow();
 
         //then
-        assertThat(finded.getUsedItemPostId()).isEqualTo(expected);
+        assertThat(finded.getUsedItemPostIdToString()).isEqualTo(expected);
         assertThat(save).isEqualTo(finded);
         
     
