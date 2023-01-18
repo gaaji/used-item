@@ -40,7 +40,7 @@ public class deleteServiceTest {
                 UsedItemPostId.of("foo"),
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
-                ,true, null, TradeStatus.SELLING, null, Town.of("townID", "address")
+                ,true, null, Town.of("townID", "address")
                 , Collections.emptyList()
         );
 
