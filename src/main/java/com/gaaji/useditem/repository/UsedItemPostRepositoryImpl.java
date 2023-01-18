@@ -29,7 +29,7 @@ public class UsedItemPostRepositoryImpl implements
 
 	@Override
 	public void updateHide(UsedItemPostId postId, boolean isHide) {
-		 jpaUsedItemPostRepository.updateIsHideByPostId(postId, isHide);
+		 jpaUsedItemPostRepository.updateIsHide(postId, isHide);
 	}
 
 }
