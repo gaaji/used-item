@@ -10,37 +10,48 @@ import com.gaaji.useditem.exception.InputNullDataOnPriceException;
 import com.gaaji.useditem.exception.InputNullDataOnSellerIdException;
 import com.gaaji.useditem.exception.InputNullDataOnTitleException;
 import com.gaaji.useditem.exception.InputNullDataOnTownIdException;
+import com.gaaji.useditem.repository.UsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 
 import org.junit.jupiter.api.Test;
 
 class UsedItemPostCreateServiceTest {
 
+
     @Test
     void 정상_생성 () throws Exception{
         //given
 
         PostCreateRequest dto = new PostCreateRequest("title","contents","category",true,1000L, null,null,null
-        ,"foo","bar","foobar");
+                ,"foo","bar","foobar");
 
         UsedItemPostRepository usedItemPostRepository = new FakeUsedItemPostRepository();
-        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository);
+        UsedItemPostCounterRepository usedItemPostCounterRepository = new FakeUsedItemPostCounterRepository();
+        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository, usedItemPostCounterRepository);
 
         //when
         String postId = service.createUsedItemPost(dto);
         UsedItemPost usedItemPost = usedItemPostRepository.findByPostId(UsedItemPostId.of(postId))
                 .orElseThrow();
+
+        UsedItemPostCounter usedItemPostCounter = usedItemPostCounterRepository.findByPostId(UsedItemPostId.of(postId))
+                .orElseThrow();
+
         //then
         assertThat(usedItemPost).isNotNull();
+        assertThat(usedItemPostCounter).isNotNull();
         assertThat(usedItemPost.getUsedItemPostId()).isEqualTo(postId);
+        assertThat(usedItemPostCounter.getUsedItemPostId()).isEqualTo(postId);
     }
+
     @Test
     void 예외_제목X () throws Exception{
         PostCreateRequest dto = new PostCreateRequest("","contents","category",true,1000L, null,null,null
                 ,"foo","bar","foobar");
 
         UsedItemPostRepository usedItemPostRepository = new FakeUsedItemPostRepository();
-        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository);
+        UsedItemPostCounterRepository usedItemPostCounterRepository = new FakeUsedItemPostCounterRepository();
+        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository, usedItemPostCounterRepository);
 
         //when // then
         assertThatThrownBy(() -> service.createUsedItemPost(dto))
@@ -52,7 +63,8 @@ class UsedItemPostCreateServiceTest {
                 ,"foo","bar","foobar");
 
         UsedItemPostRepository usedItemPostRepository = new FakeUsedItemPostRepository();
-        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository);
+        UsedItemPostCounterRepository usedItemPostCounterRepository = new FakeUsedItemPostCounterRepository();
+        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository, usedItemPostCounterRepository);
 
         //when // then
         assertThatThrownBy(() -> service.createUsedItemPost(dto))
@@ -66,7 +78,8 @@ class UsedItemPostCreateServiceTest {
                 ,"foo","bar","foobar");
 
         UsedItemPostRepository usedItemPostRepository = new FakeUsedItemPostRepository();
-        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository);
+        UsedItemPostCounterRepository usedItemPostCounterRepository = new FakeUsedItemPostCounterRepository();
+        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository, usedItemPostCounterRepository);
 
         //when // then
         assertThatThrownBy(() -> service.createUsedItemPost(dto))
@@ -79,7 +92,8 @@ class UsedItemPostCreateServiceTest {
                 ,"foo","bar","foobar");
 
         UsedItemPostRepository usedItemPostRepository = new FakeUsedItemPostRepository();
-        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository);
+        UsedItemPostCounterRepository usedItemPostCounterRepository = new FakeUsedItemPostCounterRepository();
+        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository, usedItemPostCounterRepository);
 
         //when // then
         assertThatThrownBy(() -> service.createUsedItemPost(dto))
@@ -94,7 +108,8 @@ class UsedItemPostCreateServiceTest {
                 ,"","bar","foobar");
 
         UsedItemPostRepository usedItemPostRepository = new FakeUsedItemPostRepository();
-        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository);
+        UsedItemPostCounterRepository usedItemPostCounterRepository = new FakeUsedItemPostCounterRepository();
+        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository, usedItemPostCounterRepository);
         //when // then
         assertThatThrownBy(() -> service.createUsedItemPost(dto))
                 .isInstanceOf(InputNullDataOnSellerIdException.class);
@@ -105,7 +120,8 @@ class UsedItemPostCreateServiceTest {
                 ,"foo","","foobar");
 
         UsedItemPostRepository usedItemPostRepository = new FakeUsedItemPostRepository();
-        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository);
+        UsedItemPostCounterRepository usedItemPostCounterRepository = new FakeUsedItemPostCounterRepository();
+        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository, usedItemPostCounterRepository);
         //when // then
         assertThatThrownBy(() -> service.createUsedItemPost(dto))
                 .isInstanceOf(InputNullDataOnTownIdException.class);
@@ -116,7 +132,8 @@ class UsedItemPostCreateServiceTest {
                 ,"foo","bar","");
 
         UsedItemPostRepository usedItemPostRepository = new FakeUsedItemPostRepository();
-        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository);
+        UsedItemPostCounterRepository usedItemPostCounterRepository = new FakeUsedItemPostCounterRepository();
+        UsedItemPostCreateService service = new UsedItemPostCreateService(usedItemPostRepository, usedItemPostCounterRepository);
         //when // then
         assertThatThrownBy(() -> service.createUsedItemPost(dto))
                 .isInstanceOf(InputNullDataOnAddressException.class);
