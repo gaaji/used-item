@@ -29,7 +29,7 @@ public class UsedItemPostCreateService {
                 Post.of(dto.getTitle(), dto.getContents(), dto.getCategory())
                 , Price.of(dto.getPrice()), dto.getCanSuggest(),
                 WishPlace.of(dto.getPlaceX(), dto.getPlaceY(), dto.getPlaceText())
-                , PurchaserId.of(null), Town.of(dto.getTownId(), dto.getAddress()),
+                ,  Town.of(dto.getTownId(), dto.getAddress()),
                 Collections.emptyList()
         );
 

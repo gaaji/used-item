@@ -57,10 +57,10 @@ public class UsedItemPost {
 
     public static UsedItemPost of(UsedItemPostId postId, SellerId sellerId, Post post,
     Price price, boolean canSuggest, WishPlace wishPlace,
-            PurchaserId purchaserId, Town town, List<UsedItemPicture> pictures){
+             Town town, List<UsedItemPicture> pictures){
         return new UsedItemPost(postId,sellerId,post,price
                 ,canSuggest,wishPlace
-                ,TradeStatus.SELLING,purchaserId
+                ,TradeStatus.SELLING,PurchaserId.of(null)
                 ,town,pictures);
     }
     // 글 내용이 바뀐다.

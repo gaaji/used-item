@@ -30,7 +30,7 @@ class UsedItemPostTest {
 
         //when
         UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest, wishPlace,
-                purchaserId, town,
+                 town,
                 Collections.emptyList());
 
         //then

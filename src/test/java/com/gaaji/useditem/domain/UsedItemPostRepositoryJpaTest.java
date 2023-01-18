@@ -24,7 +24,7 @@ class UsedItemPostRepositoryJpaTest {
                 UsedItemPostId.of("foo"),
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
-                ,true, null, null, Town.of("townID", "address")
+                ,true, null,  Town.of("townID", "address")
                 , Collections.emptyList()
         );
 
