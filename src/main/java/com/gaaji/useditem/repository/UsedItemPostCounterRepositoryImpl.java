@@ -30,4 +30,6 @@ public class UsedItemPostCounterRepositoryImpl implements
 	public void delete(UsedItemPostId Id) {
 		jpaUsedItemPostCounterRepository.deleteById(Id);
 	}
+
+
 }
