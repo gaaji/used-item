@@ -8,5 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface JpaUsedItemPostRepository extends JpaRepository<UsedItemPost, UsedItemPostId> {
 
 	Long deleteBySellerIdAndPostId(SellerId sellerId, UsedItemPostId PostId);
+
+	void updateIsHide(UsedItemPostId postId, boolean isHide);
 	
 }

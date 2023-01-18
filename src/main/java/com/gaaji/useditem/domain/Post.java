@@ -31,4 +31,8 @@ public class Post {
         isHide = !isHide;
     }
 
+	public boolean getIsHide() {
+		return isHide;
+	}
+
 }
