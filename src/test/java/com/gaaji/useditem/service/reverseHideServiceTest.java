@@ -2,12 +2,8 @@ package com.gaaji.useditem.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.util.Collections;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +12,6 @@ import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
-import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.exception.NoMatchAuthIdAndSellerIdException;
@@ -45,7 +40,6 @@ public class reverseHideServiceTest {
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
                 ,true, null,  Town.of("townID", "address")
-                , Collections.emptyList()
         );
 //
 //        //when
@@ -72,7 +66,6 @@ public class reverseHideServiceTest {
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
                 ,true, null,  Town.of("townID", "address")
-                , Collections.emptyList()
         );
 //
 //        //when
@@ -97,7 +90,6 @@ public class reverseHideServiceTest {
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
                 ,true, null,  Town.of("townID", "address")
-                , Collections.emptyList()
         );
 //
 //        //when

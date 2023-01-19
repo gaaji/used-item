@@ -3,8 +3,9 @@ package com.gaaji.useditem.domain;
 import static org.assertj.core.api.Assertions.*;
 
 import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
-import java.util.Collections;
-import org.assertj.core.api.Assertions;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,15 +20,12 @@ class UsedItemPostRepositoryJpaTest {
     @Test
     void 저장_조회하기 () throws Exception{
         //given
-
         UsedItemPost usedItemPost = UsedItemPost.of(
                 UsedItemPostId.of("foo"),
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
                 ,true, null,  Town.of("townID", "address")
-                , Collections.emptyList()
         );
-
         //when
         jpaUsedItemPostRepository.save(usedItemPost);
         UsedItemPost find = jpaUsedItemPostRepository.findById(UsedItemPostId.of("foo"))
@@ -35,7 +33,42 @@ class UsedItemPostRepositoryJpaTest {
 
         //then
         assertThat(usedItemPost).isEqualTo(find);
+    }
+
+    /// 연관관계 생기는지 체크하기.
+    
+    @Test
+    void 연관관계_생성으로_같이_Save되는지 () throws Exception{
+        //given
+        List<UsedItemPicture> pictureList = new ArrayList<>();
+        pictureList.add(UsedItemPicture.of(UsedItemPictureId.of("foo"),"url"));
+
+        UsedItemPost usedItemPost = UsedItemPost.of(
+                UsedItemPostId.of("foo"),
+                SellerId.of("bar")
+                , Post.of("title", "contents", "category"), Price.of(1000L)
+                ,true, null,  Town.of("townID", "address")
+        );
+
+        usedItemPost.addPictures(pictureList);
+        jpaUsedItemPostRepository.save(usedItemPost);
+        //when
+
+        UsedItemPost finded = jpaUsedItemPostRepository.findById(UsedItemPostId.of("foo"))
+                .orElseThrow();
+        Field pictures = finded.getClass().getDeclaredField("pictures");
+        pictures.setAccessible(true);
+        //then
+
+
+        //then
+        assertThat( ((List<UsedItemPicture>)pictures.get(usedItemPost)).size()).isSameAs(1);
+
+
+        
     
     }
+
+
 
 }

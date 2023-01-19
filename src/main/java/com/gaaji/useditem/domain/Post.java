@@ -4,11 +4,14 @@ import com.gaaji.useditem.exception.InputNullDataOnCategoryException;
 import com.gaaji.useditem.exception.InputNullDataOnTitleException;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
+@Access(AccessType.FIELD)
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
@@ -59,5 +62,4 @@ public class Post {
 	public boolean getIsHide() {
 		return isHide;
 	}
-
 }

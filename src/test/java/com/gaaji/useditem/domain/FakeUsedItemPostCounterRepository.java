@@ -11,11 +11,16 @@ public class FakeUsedItemPostCounterRepository implements UsedItemPostCounterRep
 
     @Override
     public void save(UsedItemPostCounter usedItemPostCounter) {
-        storage.put(UsedItemPostId.of(usedItemPostCounter.getUsedItemPostId()), usedItemPostCounter);
+        storage.put(UsedItemPostId.of(usedItemPostCounter.getUsedItemPostIdToString()), usedItemPostCounter);
     }
 
     @Override
     public Optional<UsedItemPostCounter> findByPostId(UsedItemPostId postId) {
         return Optional.ofNullable(storage.get(postId));
+    }
+
+    @Override
+    public void delete(UsedItemPostId id) {
+
     }
 }

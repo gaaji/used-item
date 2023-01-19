@@ -15,7 +15,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -58,11 +57,11 @@ public class UsedItemPost {
 
     public static UsedItemPost of(UsedItemPostId postId, SellerId sellerId, Post post,
     Price price, boolean canSuggest, WishPlace wishPlace,
-             Town town, List<UsedItemPicture> pictures){
+             Town town){
         return new UsedItemPost(postId,sellerId,post,price
                 ,canSuggest,wishPlace
                 ,TradeStatus.SELLING,PurchaserId.of(null)
-                ,town,pictures);
+                ,town,new ArrayList<>());
     }
     // 글 내용이 바뀐다.
     public void modify(Post post, Price price, boolean canSuggest,WishPlace wishPlace,
@@ -113,4 +112,10 @@ public class UsedItemPost {
 		return post.getIsHide();
 	}
 
+    public void addPictures(List<UsedItemPicture> list) {
+        list.forEach((p) -> p.associateWithPost(this));
+        this.pictures.clear();
+        this.pictures.addAll(list);
+
+    }
 }
