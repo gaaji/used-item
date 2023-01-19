@@ -60,8 +60,4 @@ public class Post {
 		return isHide;
 	}
 
-	public boolean getIsHide() {
-		return isHide;
-	}
-
 }

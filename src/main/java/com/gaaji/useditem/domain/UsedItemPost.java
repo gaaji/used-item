@@ -113,12 +113,4 @@ public class UsedItemPost {
 		return post.getIsHide();
 	}
 
-	public boolean checkSellerId(String authId) {
-		return this.sellerId.getId().equals(authId);
-	}
-
-	public boolean getIsHide() {
-		return post.getIsHide();
-	}
-
 }

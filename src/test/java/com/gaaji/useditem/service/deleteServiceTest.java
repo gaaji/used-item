@@ -1,4 +1,6 @@
-package com.gaaji.useditem;
+package com.gaaji.useditem.service;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Collections;
 
@@ -18,6 +20,7 @@ import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
+import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.JpaUsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
 
@@ -36,11 +39,41 @@ public class deleteServiceTest {
     void 삭제서비스 () throws Exception{
         //given
 
-        UsedItemPost usedItemPost = UsedItemPost.of(
+    	UsedItemPost usedItemPost = UsedItemPost.of(
                 UsedItemPostId.of("foo"),
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
-                ,true, null, TradeStatus.SELLING, null, Town.of("townID", "address")
+                ,true, null,  Town.of("townID", "address")
+                , Collections.emptyList()
+        );
+
+        //when
+        jpaUsedItemPostRepository.save(usedItemPost);
+        UsedItemPost find = jpaUsedItemPostRepository.findById(UsedItemPostId.of("foo")).get();
+
+        UsedItemPostCounter counter = UsedItemPostCounter.of( UsedItemPostId.of("foo"), Counter.of());
+        
+        
+        
+        
+        this.jpaUsedItemPostCounterRepository.save(counter);
+       
+        
+        usedItemDeleteService.deleteUsedItem("bar", "foo");
+        System.out.println("완료");
+       
+    
+    }
+    
+    @Test
+    void  삭제예외() throws Exception{
+        //given
+
+    	UsedItemPost usedItemPost = UsedItemPost.of(
+                UsedItemPostId.of("foo"),
+                SellerId.of("bar")
+                , Post.of("title", "contents", "category"), Price.of(1000L)
+                ,true, null,  Town.of("townID", "address")
                 , Collections.emptyList()
         );
 
@@ -56,8 +89,8 @@ public class deleteServiceTest {
         
         this.jpaUsedItemPostCounterRepository.save(counter);
        
+        assertThatThrownBy(()->usedItemDeleteService.deleteUsedItem("bar", "123")).isInstanceOf(NoSearchPostException.class);
         
-        usedItemDeleteService.deleteUsedItem("bar", "foo");
         System.out.println("완료");
        
     
