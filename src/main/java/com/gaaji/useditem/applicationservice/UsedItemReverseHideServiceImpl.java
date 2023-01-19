@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
-import com.gaaji.useditem.exception.NoMatchAuthIdAndSellerId;
+import com.gaaji.useditem.exception.NoMatchAuthIdAndSellerIdException;
 import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 
@@ -28,7 +28,7 @@ public class UsedItemReverseHideServiceImpl implements UsedItemReverseHideServic
 		if(usedItemPost.checkSellerId(authId)) {
 			usedItemPost.reverseHide();
 		} else {
-			throw new NoMatchAuthIdAndSellerId();
+			throw new NoMatchAuthIdAndSellerIdException();
 		}
 	}
 	

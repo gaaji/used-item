@@ -1,5 +1,7 @@
 package com.gaaji.useditem.service;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,7 @@ import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
+import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.JpaUsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
 
@@ -86,8 +89,8 @@ public class deleteServiceTest {
         
         this.jpaUsedItemPostCounterRepository.save(counter);
        
+        assertThatThrownBy(()->usedItemDeleteService.deleteUsedItem("bar", "123")).isInstanceOf(NoSearchPostException.class);
         
-        usedItemDeleteService.deleteUsedItem("bar", "123");
         System.out.println("완료");
        
     

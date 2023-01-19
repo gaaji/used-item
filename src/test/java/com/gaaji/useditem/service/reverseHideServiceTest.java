@@ -1,5 +1,7 @@
 package com.gaaji.useditem.service;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import java.util.Collections;
 import java.util.Optional;
 
@@ -17,6 +19,8 @@ import com.gaaji.useditem.domain.Town;
 import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
+import com.gaaji.useditem.exception.NoMatchAuthIdAndSellerIdException;
+import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 
@@ -74,7 +78,7 @@ public class reverseHideServiceTest {
 //        //when
         jpaUsedItemPostRepository.save(usedItemPost);
 //       
-        this.hideService.reverseHide("bar", "123");;
+        assertThatThrownBy(()->this.hideService.reverseHide("bar", "123")).isInstanceOf(NoSearchPostException.class);
 
 		UsedItemPost usedItemPost2 = this.usedItemPostRepository.findById(UsedItemPostId.of("foo")).orElseThrow(() -> new RuntimeException()); 
         System.out.println(usedItemPost2.getIsHide());
@@ -98,8 +102,8 @@ public class reverseHideServiceTest {
 //
 //        //when
         jpaUsedItemPostRepository.save(usedItemPost);
-//       
-        this.hideService.reverseHide("123", "foo");;
+      
+        assertThatThrownBy(()->this.hideService.reverseHide("123", "foo")).isInstanceOf(NoMatchAuthIdAndSellerIdException.class);
 
 		UsedItemPost usedItemPost2 = this.usedItemPostRepository.findById(UsedItemPostId.of("foo")).orElseThrow(() -> new RuntimeException()); 
         System.out.println(usedItemPost2.getIsHide());
