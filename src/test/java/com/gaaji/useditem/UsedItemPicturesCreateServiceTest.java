@@ -10,15 +10,12 @@ import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
 import com.gaaji.useditem.domain.UsedItemPicture;
-import com.gaaji.useditem.domain.UsedItemPictureId;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.domain.WishPlace;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 import java.lang.reflect.Field;
-import java.util.Collections;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,8 +37,8 @@ class UsedItemPicturesCreateServiceTest {
         WishPlace wishPlace = null;
         Town town = Town.of("foo", "bar");
         UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest, wishPlace,
-                town,
-                Collections.emptyList());
+                town
+        );
 
 
         usedItemPostRepository.save(usedItemPost);

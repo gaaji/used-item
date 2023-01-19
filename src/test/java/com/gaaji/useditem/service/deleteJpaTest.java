@@ -1,6 +1,4 @@
-package com.gaaji.useditem;
-
-import java.util.Collections;
+package com.gaaji.useditem.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
-import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
@@ -31,12 +28,11 @@ public class deleteJpaTest {
     void 삭제Jpa () throws Exception{
         //given
 
-        UsedItemPost usedItemPost = UsedItemPost.of(
+    	UsedItemPost usedItemPost = UsedItemPost.of(
                 UsedItemPostId.of("foo"),
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
                 ,true, null,Town.of("townID", "address")
-                , Collections.emptyList()
         );
 
         //when
@@ -51,8 +47,9 @@ public class deleteJpaTest {
         
         
         this.jpaUsedItemPostCounterRepository.save(counter);
-        jpaUsedItemPostCounterRepository.deleteById(UsedItemPostId.of("foo"));;
 
+        this.jpaUsedItemPostCounterRepository.findById(UsedItemPostId.of("foo"));
+        jpaUsedItemPostCounterRepository.deleteById(UsedItemPostId.of("foo"));
         System.out.println("완료");
        
     

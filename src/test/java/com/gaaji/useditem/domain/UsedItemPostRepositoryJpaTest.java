@@ -5,9 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -27,7 +25,6 @@ class UsedItemPostRepositoryJpaTest {
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
                 ,true, null,  Town.of("townID", "address")
-                , Collections.emptyList()
         );
         //when
         jpaUsedItemPostRepository.save(usedItemPost);
@@ -51,7 +48,6 @@ class UsedItemPostRepositoryJpaTest {
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
                 ,true, null,  Town.of("townID", "address")
-                , Collections.emptyList()
         );
 
         usedItemPost.addPictures(pictureList);

@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 
 import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
-import com.gaaji.useditem.domain.PurchaserId;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
 import com.gaaji.useditem.domain.UsedItemPicture;
@@ -13,8 +12,6 @@ import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.domain.WishPlace;
 import java.lang.reflect.Field;
-import java.util.Collections;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class UsedItemPictureTest {
@@ -44,8 +41,8 @@ class UsedItemPictureTest {
         WishPlace wishPlace = null;
         Town town = Town.of("foo", "bar");
         UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest, wishPlace,
-                town,
-                Collections.emptyList());
+                town
+        );
         UsedItemPicture picture = UsedItemPicture.of(UsedItemPictureId.of("foo"), "url");
 
         //when

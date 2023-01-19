@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest
+@WebMvcTest(controllers = UsedItemPostCreateController.class)
 class UsedItemPostCreateControllerTest {
     
     @Autowired

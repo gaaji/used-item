@@ -11,9 +11,7 @@ import com.gaaji.useditem.exception.InputNullDataOnTitleException;
 import com.gaaji.useditem.exception.InputNullDataOnTownIdException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class UsedItemPostTest {
@@ -33,8 +31,8 @@ class UsedItemPostTest {
 
         //when
         UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest, wishPlace,
-                 town,
-                Collections.emptyList());
+                 town
+        );
 
         //then
         assertThat(usedItemPost).isNotNull();
@@ -54,8 +52,8 @@ class UsedItemPostTest {
         Town town = Town.of("foo", "bar");
 
         UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest, wishPlace,
-                town,
-                Collections.emptyList());
+                town
+        );
 
         List<UsedItemPicture> list = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
