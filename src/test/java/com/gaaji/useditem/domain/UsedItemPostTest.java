@@ -9,7 +9,10 @@ import com.gaaji.useditem.exception.InputNullDataOnPriceException;
 import com.gaaji.useditem.exception.InputNullDataOnSellerIdException;
 import com.gaaji.useditem.exception.InputNullDataOnTitleException;
 import com.gaaji.useditem.exception.InputNullDataOnTownIdException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +38,38 @@ class UsedItemPostTest {
 
         //then
         assertThat(usedItemPost).isNotNull();
+    }
+
+
+    @Test
+    void 사진_업로드 () throws Exception{
+        //given
+        UsedItemPostId itemPostId = UsedItemPostId.of("foo");
+        SellerId sellerId = SellerId.of("seller");
+        Post post = Post.of("foo", "bar", "foobar");
+        Price price = Price.of(1000L);
+        boolean canSuggest = false;
+        WishPlace wishPlace = null;
+        PurchaserId purchaserId = PurchaserId.of(null);
+        Town town = Town.of("foo", "bar");
+
+        UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest, wishPlace,
+                town,
+                Collections.emptyList());
+
+        List<UsedItemPicture> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            list.add(UsedItemPicture.of(UsedItemPictureId.of("foo" + i), "url" + i));
+        }
+
+        //when
+        usedItemPost.addPictures(list);
+        Field pictures = usedItemPost.getClass().getDeclaredField("pictures");
+        pictures.setAccessible(true);
+
+        //then
+        assertThat( ((List<UsedItemPicture>)pictures.get(usedItemPost)).size()).isSameAs(5);
+
 
     }
 

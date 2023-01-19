@@ -51,7 +51,8 @@ public class deleteJpaTest {
         
         
         this.jpaUsedItemPostCounterRepository.save(counter);
-        jpaUsedItemPostCounterRepository.deleteById(UsedItemPostId.of("foo"));
+        jpaUsedItemPostCounterRepository.deleteById(UsedItemPostId.of("foo"));;
+
         System.out.println("완료");
        
     

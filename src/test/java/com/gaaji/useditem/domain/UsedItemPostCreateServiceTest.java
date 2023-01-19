@@ -41,7 +41,7 @@ class UsedItemPostCreateServiceTest {
         assertThat(usedItemPost).isNotNull();
         assertThat(usedItemPostCounter).isNotNull();
         assertThat(usedItemPost.getUsedItemPostId()).isEqualTo(postId);
-        assertThat(usedItemPostCounter.getUsedItemPostId()).isEqualTo(postId);
+        assertThat(usedItemPostCounter.getUsedItemPostIdToString()).isEqualTo(postId);
     }
 
     @Test

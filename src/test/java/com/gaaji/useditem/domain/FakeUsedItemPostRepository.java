@@ -18,4 +18,14 @@ public class FakeUsedItemPostRepository implements UsedItemPostRepository {
     public void save(UsedItemPost usedItemPost) {
         storage.put(UsedItemPostId.of(usedItemPost.getUsedItemPostId()), usedItemPost);
     }
+
+    @Override
+    public Long delete(SellerId sellerId, UsedItemPostId usedItemPostId) {
+        return null;
+    }
+
+    @Override
+    public Optional<UsedItemPost> findById(UsedItemPostId postId) {
+        return Optional.empty();
+    }
 }

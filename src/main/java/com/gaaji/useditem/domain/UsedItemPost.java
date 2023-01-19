@@ -113,4 +113,10 @@ public class UsedItemPost {
 		return post.getIsHide();
 	}
 
+    public void addPictures(List<UsedItemPicture> list) {
+        list.forEach((p) -> p.associateWithPost(this));
+        this.pictures.clear();
+        this.pictures.addAll(list);
+
+    }
 }
