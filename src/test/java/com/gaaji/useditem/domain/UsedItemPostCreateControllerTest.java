@@ -2,19 +2,18 @@ package com.gaaji.useditem.domain;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gaaji.useditem.applicationservice.UsedItemPostCreateService;
 import com.gaaji.useditem.controller.UsedItemPostCreateController;
 import com.gaaji.useditem.controller.dto.PostCreateRequest;
 import com.gaaji.useditem.controller.dto.TownToken;
-import com.sun.xml.bind.v2.TODO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -45,11 +44,11 @@ class UsedItemPostCreateControllerTest {
     void 정상생성 () throws Exception{
         //given
         BDDMockito.given(usedItemPostCreateService
-                .createUsedItemPost(ArgumentMatchers.any()))
+                .createUsedItemPost(ArgumentMatchers.any(), anyString(), anyString()))
                 .willReturn("foo");
-        PostCreateRequest dto = new PostCreateRequest("title","contents","category",true,1000L, null,null,null
-                ,"foo","bar","foobar");
-        TownToken townToken = new TownToken("foo","bar");
+        PostCreateRequest dto = new PostCreateRequest("title","contents","category",true,1000L, null,null,null);
+
+        TownToken townToken = new TownToken("foo",true);
 
 
         //when

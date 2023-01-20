@@ -19,20 +19,4 @@ public class PostCreateRequest {
     private String placeX;
     private String placeY;
     private String placeText;
-
-    private String authId;
-    private String townId;
-    private String address;
-
-    public void injectHeaderInfo(String authId, String townHeader){
-        this.authId = authId;
-        TownToken townToken = null;
-        try {
-             townToken = new ObjectMapper().readValue(townHeader, TownToken.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        this.townId = townToken.getTownId();
-        this.address = townToken.getAddress();
-    }
 }

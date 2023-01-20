@@ -33,7 +33,10 @@ public enum UsedItemErrorCode implements ErrorCode {
     		"해당하는 중고거래글을 찾지 못했습니다."),
     No_Match_Auth_Id_And_Seller_Id(HttpStatus.UNAUTHORIZED, "u-0009",
     		"유저 정보(Id)가 작성자 정보(Id)와 일치하지 않습니다."),
-	
+    TOWN_UNAUTHENTICATED(HttpStatus.FORBIDDEN, "u-0010",
+            "동네가 인증되지 않았습니다."),
+    JSON_PARSING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "u-0011",
+            "JSON 파싱 과정에서 오류가 발생"),
     ;
 	
 	private final HttpStatus httpStatus;

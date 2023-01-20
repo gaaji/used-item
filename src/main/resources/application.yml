@@ -13,3 +13,12 @@ spring:
     defer-datasource-initialization: true
   config:
     import: secret.yml
+  application:
+    name: used-item-service
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone : http://localhost:8761/eureka
