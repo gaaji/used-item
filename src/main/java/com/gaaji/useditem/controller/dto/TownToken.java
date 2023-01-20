@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class TownToken {
     private String townId;
-    private String address;
+
+    private boolean isAuthenticated;
 
 }
