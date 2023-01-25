@@ -1,4 +1,4 @@
-package com.gaaji.useditem;
+package com.gaaji.useditem.domain;
 
 import static org.assertj.core.api.Assertions.*;
 

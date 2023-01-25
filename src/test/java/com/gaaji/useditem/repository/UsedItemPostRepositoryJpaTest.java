@@ -1,7 +1,15 @@
-package com.gaaji.useditem.domain;
+package com.gaaji.useditem.repository;
 
 import static org.assertj.core.api.Assertions.*;
 
+import com.gaaji.useditem.domain.Post;
+import com.gaaji.useditem.domain.Price;
+import com.gaaji.useditem.domain.SellerId;
+import com.gaaji.useditem.domain.Town;
+import com.gaaji.useditem.domain.UsedItemPicture;
+import com.gaaji.useditem.domain.UsedItemPictureId;
+import com.gaaji.useditem.domain.UsedItemPost;
+import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
 import java.lang.reflect.Field;
 import java.util.ArrayList;

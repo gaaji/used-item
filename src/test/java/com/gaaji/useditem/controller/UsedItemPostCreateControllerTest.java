@@ -1,4 +1,4 @@
-package com.gaaji.useditem.domain;
+package com.gaaji.useditem.controller;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
