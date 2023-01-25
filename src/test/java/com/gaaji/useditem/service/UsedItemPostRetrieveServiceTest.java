@@ -1,4 +1,4 @@
-package com.gaaji.useditem.controller;
+package com.gaaji.useditem.service;
 
 import static org.assertj.core.api.Assertions.*;
 
