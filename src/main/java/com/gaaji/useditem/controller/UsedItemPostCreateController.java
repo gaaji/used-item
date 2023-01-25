@@ -20,9 +20,7 @@ public class UsedItemPostCreateController {
 
     @PostMapping("/posts")
     public ResponseEntity<PostCreateResponse> createUsedItemPost(@RequestHeader(HttpHeaders.AUTHORIZATION)
-    String authorization,
-            @RequestHeader("X-TOWN-TOKEN") String townToken
-            , @RequestBody PostCreateRequest dto
+    String authorization, @RequestHeader("X-TOWN-TOKEN") String townToken, @RequestBody PostCreateRequest dto
     ) {
         dto.injectHeaderInfo(authorization,townToken);
         String postId = usedItemPostCreateService.createUsedItemPost(dto);

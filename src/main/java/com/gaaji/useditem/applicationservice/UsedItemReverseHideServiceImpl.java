@@ -1,12 +1,9 @@
 package com.gaaji.useditem.applicationservice;
 
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.exception.NoMatchAuthIdAndSellerIdException;
