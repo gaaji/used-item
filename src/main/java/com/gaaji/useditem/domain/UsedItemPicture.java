@@ -36,4 +36,8 @@ public class UsedItemPicture {
     public void associateWithPost(UsedItemPost usedItemPost) {
         this.post = usedItemPost;
     }
+
+    public String getUrl() {
+        return url;
+    }
 }
