@@ -1,4 +1,4 @@
-package com.gaaji.useditem.domain;
+package com.gaaji.useditem.service;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -7,6 +7,9 @@ import com.gaaji.useditem.adaptor.TownServiceClient;
 import com.gaaji.useditem.applicationservice.UsedItemPostCreateService;
 import com.gaaji.useditem.controller.dto.PostCreateRequest;
 import com.gaaji.useditem.controller.dto.TownToken;
+import com.gaaji.useditem.domain.UsedItemPost;
+import com.gaaji.useditem.domain.UsedItemPostCounter;
+import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.exception.InputNullDataOnAddressException;
 import com.gaaji.useditem.exception.InputNullDataOnCategoryException;
 import com.gaaji.useditem.exception.InputNullDataOnPriceException;
@@ -15,6 +18,10 @@ import com.gaaji.useditem.exception.InputNullDataOnTitleException;
 import com.gaaji.useditem.exception.InputNullDataOnTownIdException;
 import com.gaaji.useditem.exception.JsonParsingException;
 import com.gaaji.useditem.exception.TownUnAuthentiactedException;
+import com.gaaji.useditem.impl.FakeUsedItemPostCounterRepository;
+import com.gaaji.useditem.impl.FakeUsedItemPostRepository;
+import com.gaaji.useditem.impl.StubNullTownServiceClient;
+import com.gaaji.useditem.impl.StubTownServiceClient;
 import com.gaaji.useditem.repository.UsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 

@@ -1,5 +1,7 @@
-package com.gaaji.useditem.domain;
+package com.gaaji.useditem.impl;
 
+import com.gaaji.useditem.domain.UsedItemPostCounter;
+import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.repository.UsedItemPostCounterRepository;
 import java.util.HashMap;
 import java.util.Map;
