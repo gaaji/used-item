@@ -28,7 +28,7 @@ public class S3UploaderImpl implements S3Uploader{
             int i = 0;
             for (MultipartFile file : multipartFile) {
                 validateIsClientSendImageFile(file);
-                urls[i++] = uploadFiles(file, "picture");
+                urls[i++] = uploadFiles(file, "gaaji");
             }
             return urls;
         }catch (IOException e){
