@@ -51,4 +51,20 @@ public class UsedItemPostCounter {
     public int hashCode() {
         return Objects.hash(usedItemPostId, counter);
     }
+
+    public int getSuggestCount() {
+        return counter.getSuggestCount();
+    }
+
+    public int getInterestCount() {
+        return counter.getInterestCount();
+    }
+
+    public int getViewCount() {
+        return counter.getViewCount();
+    }
+
+    public int getChatCount() {
+        return counter.getChatCount();
+    }
 }
