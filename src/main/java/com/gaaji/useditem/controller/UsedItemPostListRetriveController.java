@@ -25,7 +25,7 @@ public class UsedItemPostListRetriveController {
     @GetMapping("?pageNum")
     public ResponseEntity<List<PostListRetirveResponse>> createUsedItemPost(@RequestHeader(HttpHeaders.AUTHORIZATION) String authId, 
     		@RequestHeader("X-TOWN-TOKEN") String townToken , @RequestBody int pageNum ) {
-    	List<PostListRetirveResponse> posts = usedItemPostListRetriveService.retriveUsedItemPostList(authId, townToken, pageNum);
+    	List<PostListRetirveResponse> posts = usedItemPostListRetriveService.retriveUsedItemPostList(townToken, pageNum);
         return ResponseEntity.status(HttpStatus.CREATED).body(posts);
     }
 }

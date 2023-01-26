@@ -17,7 +17,7 @@ public interface JpaUsedItemPostRepository extends JpaRepository<UsedItemPost, U
 
 	Long deleteBySellerIdAndPostId(SellerId sellerId, UsedItemPostId PostId);
 //사진 url 고민해보기
-	@Query("select new com.gaaji.useditem.controller.dto.PreviewPost(u.sellerId.id, u.post.title, u.town.address, u.post.createdAt, u.price.price) from UsedItemPost u "
+	@Query("select new com.gaaji.useditem.controller.dto.PreviewPost(u.postId.id, u.representPictureUrl ,u.post.title, u.town.address, u.post.createdAt, u.price.price) from UsedItemPost u "
             + "where u.town.id =:townId ")
 	List<PreviewPost> findByTownId(@Param("townId") String townId, PageRequest pageRequest);
 

@@ -1,5 +1,6 @@
 package com.gaaji.useditem.applicationservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -12,7 +13,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gaaji.useditem.controller.dto.PostListRetirveResponse;
 import com.gaaji.useditem.controller.dto.PreviewPost;
+import com.gaaji.useditem.controller.dto.PreviewPostCount;
 import com.gaaji.useditem.controller.dto.TownToken;
+import com.gaaji.useditem.domain.UsedItemPost;
+import com.gaaji.useditem.domain.UsedItemPostId;
+import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.UsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 
@@ -27,7 +32,7 @@ public class UsedItemPostListRetriveServiceImpl implements UsedItemPostListRetri
 	private final UsedItemPostCounterRepository usedItemPostCounterRepository;
 	
 	@Override
-	public List<PostListRetirveResponse> retriveUsedItemPostList(String authId, String townHeader, int pageNum) {
+	public List<PostListRetirveResponse> retriveUsedItemPostList(String townHeader, int pageNum) {
 		
 		TownToken townToken = null;
         try {
@@ -36,13 +41,29 @@ public class UsedItemPostListRetriveServiceImpl implements UsedItemPostListRetri
             throw new RuntimeException(e);
         }
         
-        PageRequest pageRequest = PageRequest.of(pageNum, 8, Sort.by("createdAt").descending());
+        PageRequest pageRequest = PageRequest.of(pageNum, 8, Sort.by("post.createdAt").descending());
         
         townToken.getTownId();
         
-        List<PreviewPost> previewPost = this.usedItemPostRepository.findByTownId(townToken.getTownId(),pageRequest);
-        
-		return null;
+        List<PreviewPost> previewPostList = this.usedItemPostRepository.findByTownId(townToken.getTownId(),pageRequest);
+        if(previewPostList.size() > 0) {
+        	return getPostListRetirveResponse(previewPostList);
+        } else {
+        	return null;
+        }
+		
+	}
+
+	private List<PostListRetirveResponse> getPostListRetirveResponse(List<PreviewPost> previewPostList) {
+		List<PostListRetirveResponse> postListRetirveResponseList = new ArrayList<PostListRetirveResponse>();
+		for(PreviewPost previewPost : previewPostList) {
+			PreviewPostCount previewPostCount = this.usedItemPostCounterRepository.findPreviewCountByPostId(previewPost.getPostId()).orElseThrow(() -> new RuntimeException());
+			//TODO 예외 처리 추가
+			PostListRetirveResponse postListRetirveResponse = PostListRetirveResponse.of(previewPost, previewPostCount);
+			postListRetirveResponseList.add(postListRetirveResponse);
+		}
+
+		return postListRetirveResponseList;
 	}
 
 }
