@@ -1,7 +1,6 @@
 package com.gaaji.useditem.repository;
 
 import com.gaaji.useditem.controller.dto.PreviewPost;
-import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;

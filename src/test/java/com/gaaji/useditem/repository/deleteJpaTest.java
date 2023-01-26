@@ -1,20 +1,14 @@
-package com.gaaji.useditem.service;
-
-import java.util.Collections;
-
-import javax.transaction.Transactional;
+package com.gaaji.useditem.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.repository.query.Param;
 
 import com.gaaji.useditem.domain.Counter;
 import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
-import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
@@ -22,7 +16,6 @@ import com.gaaji.useditem.repository.JpaUsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
 
 @DataJpaTest
-@Transactional
 public class deleteJpaTest {
 
 	@Autowired
@@ -39,8 +32,7 @@ public class deleteJpaTest {
                 UsedItemPostId.of("foo"),
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
-                ,true, null,  Town.of("townID", "address")
-                , Collections.emptyList()
+                ,true, null,Town.of("townID", "address")
         );
 
         //when
@@ -55,7 +47,7 @@ public class deleteJpaTest {
         
         
         this.jpaUsedItemPostCounterRepository.save(counter);
-        
+
         this.jpaUsedItemPostCounterRepository.findById(UsedItemPostId.of("foo"));
         jpaUsedItemPostCounterRepository.deleteById(UsedItemPostId.of("foo"));
         System.out.println("완료");

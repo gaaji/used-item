@@ -2,6 +2,7 @@ package com.gaaji.useditem.controller.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,19 +21,16 @@ public class PostCreateRequest {
     private String placeY;
     private String placeText;
 
-    private String authId;
-    private String townId;
-    private String address;
 
-    public void injectHeaderInfo(String authId, String townHeader){
-        this.authId = authId;
-        TownToken townToken = null;
-        try {
-             townToken = new ObjectMapper().readValue(townHeader, TownToken.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        this.townId = townToken.getTownId();
-        this.address = townToken.getAddress();
+    public String getPlaceX() {
+        return Optional.ofNullable(placeX).orElseGet(() -> "");
+    }
+
+    public String getPlaceY() {
+        return Optional.ofNullable(placeY).orElseGet(() -> "");
+    }
+
+    public String getPlaceText() {
+        return Optional.ofNullable(placeText).orElseGet(() -> "");
     }
 }

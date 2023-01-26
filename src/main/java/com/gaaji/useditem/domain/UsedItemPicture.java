@@ -24,8 +24,20 @@ public class UsedItemPicture {
     private String url;
 
 
-    public static UsedItemPicture of(UsedItemPictureId pictureId, UsedItemPost post
-    ,String url){
-        return new UsedItemPicture(pictureId,post,url);
+    public static UsedItemPicture of(UsedItemPictureId pictureId,
+            String url){
+        return new UsedItemPicture(pictureId,null,url);
+    }
+
+    public String getUsedItemPictureId() {
+        return pictureId.getId();
+    }
+
+    public void associateWithPost(UsedItemPost usedItemPost) {
+        this.post = usedItemPost;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

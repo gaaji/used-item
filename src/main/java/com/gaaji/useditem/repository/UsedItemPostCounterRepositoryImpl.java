@@ -7,8 +7,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import com.gaaji.useditem.domain.UsedItemPostId;
-
 @RequiredArgsConstructor
 @Repository
 public class UsedItemPostCounterRepositoryImpl implements
@@ -28,8 +26,8 @@ public class UsedItemPostCounterRepositoryImpl implements
     }
 
 	@Override
-	public void delete(UsedItemPostId Id) {
-		jpaUsedItemPostCounterRepository.deleteById(Id);
+	public void delete(UsedItemPostId id) {
+		jpaUsedItemPostCounterRepository.deleteById(id);
 	}
 
 	@Override

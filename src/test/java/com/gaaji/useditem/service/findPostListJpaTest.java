@@ -49,7 +49,6 @@ public class findPostListJpaTest {
                 SellerId.of("bar")
                 , Post.of("title", "contents", "category"), Price.of(1000L)
                 ,true, null, Town.of("townID", "address")
-                , Collections.emptyList()
         );
 
         //when

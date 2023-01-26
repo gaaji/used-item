@@ -1,6 +1,8 @@
 package com.gaaji.useditem.domain;
 
 import java.util.Objects;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+@Access(AccessType.FIELD)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -47,5 +50,21 @@ public class UsedItemPostCounter {
     @Override
     public int hashCode() {
         return Objects.hash(usedItemPostId, counter);
+    }
+
+    public int getSuggestCount() {
+        return counter.getSuggestCount();
+    }
+
+    public int getInterestCount() {
+        return counter.getInterestCount();
+    }
+
+    public int getViewCount() {
+        return counter.getViewCount();
+    }
+
+    public int getChatCount() {
+        return counter.getChatCount();
     }
 }

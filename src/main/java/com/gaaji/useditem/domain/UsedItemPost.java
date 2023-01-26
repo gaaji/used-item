@@ -1,5 +1,6 @@
 package com.gaaji.useditem.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +16,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -60,11 +60,11 @@ public class UsedItemPost {
 
     public static UsedItemPost of(UsedItemPostId postId, SellerId sellerId, Post post,
     Price price, boolean canSuggest, WishPlace wishPlace,
-             Town town, List<UsedItemPicture> pictures){
+             Town town){
         return new UsedItemPost(postId,sellerId,post,price
                 ,canSuggest,wishPlace
                 ,TradeStatus.SELLING,PurchaserId.of(null)
-                ,town, null, pictures);
+                ,town, null, new ArrayList<>());
     }
     // 글 내용이 바뀐다.
     public void modify(Post post, Price price, boolean canSuggest,WishPlace wishPlace,
@@ -115,4 +115,64 @@ public class UsedItemPost {
 		return post.getIsHide();
 	}
 
+    public void addPictures(List<UsedItemPicture> list) {
+        list.forEach((p) -> p.associateWithPost(this));
+        this.pictures.clear();
+        this.pictures.addAll(list);
+
+    }
+
+    public String getTitle() {
+        return post.getTitle();
+    }
+
+    public String getContents() {
+        return post.getContents();
+    }
+
+    public String getCategory() {
+        return post.getCategory();
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return post.getCreatedAt();
+    }
+
+    public long getPrice() {
+        return price.getPrice();
+    }
+
+    public boolean getCanSuggest() {
+        return this.canSuggest;
+    }
+
+    public String getWishX() {
+        return wishPlace.getPlaceX();
+    }
+
+    public String getWishY() {
+        return wishPlace.getPlaceY();
+    }
+
+    public String getWishText() {
+        return wishPlace.getPlaceText();
+    }
+
+    public String getTownId() {
+        return town.getId();
+    }
+
+    public String getAddress() {
+        return town.getAddress();
+    }
+
+    public List<String> getPicturesUrl(){
+        return this.pictures.stream().map(UsedItemPicture::getUrl)
+                .toList();
+    }
+
+
+    public String getSellerId() {
+        return this.sellerId.getId();
+    }
 }
