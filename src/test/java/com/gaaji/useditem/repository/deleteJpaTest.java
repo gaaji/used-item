@@ -1,4 +1,4 @@
-package com.gaaji.useditem.service;
+package com.gaaji.useditem.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

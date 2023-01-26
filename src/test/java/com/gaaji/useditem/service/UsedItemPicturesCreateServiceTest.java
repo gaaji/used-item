@@ -1,10 +1,10 @@
-package com.gaaji.useditem;
+package com.gaaji.useditem.service;
 
 import static org.assertj.core.api.Assertions.*;
 
 import com.gaaji.useditem.adaptor.S3Uploader;
 import com.gaaji.useditem.applicationservice.UsedItemPicturesCreateService;
-import com.gaaji.useditem.domain.FakeUsedItemPostRepository;
+import com.gaaji.useditem.impl.FakeUsedItemPostRepository;
 import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
@@ -13,6 +13,7 @@ import com.gaaji.useditem.domain.UsedItemPicture;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.domain.WishPlace;
+import com.gaaji.useditem.impl.StubS3Uploader;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 import java.lang.reflect.Field;
 import java.util.List;

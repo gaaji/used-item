@@ -1,7 +1,10 @@
-package com.gaaji.useditem.domain;
+package com.gaaji.useditem.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.gaaji.useditem.domain.Counter;
+import com.gaaji.useditem.domain.UsedItemPostCounter;
+import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.repository.JpaUsedItemPostCounterRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

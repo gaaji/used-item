@@ -1,4 +1,4 @@
-package com.gaaji.useditem;
+package com.gaaji.useditem.impl;
 
 import com.gaaji.useditem.adaptor.S3Uploader;
 import org.springframework.web.multipart.MultipartFile;
