@@ -1,5 +1,6 @@
 package com.gaaji.useditem.impl;
 
+import com.gaaji.useditem.controller.dto.PreviewPostCount;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.repository.UsedItemPostCounterRepository;
@@ -25,4 +26,10 @@ public class FakeUsedItemPostCounterRepository implements UsedItemPostCounterRep
     public void delete(UsedItemPostId id) {
 
     }
+
+	@Override
+	public Optional<PreviewPostCount> findPreviewCountByPostId(String postId) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
 }
