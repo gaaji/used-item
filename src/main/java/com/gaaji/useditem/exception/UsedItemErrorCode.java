@@ -33,7 +33,8 @@ public enum UsedItemErrorCode implements ErrorCode {
     		"해당하는 중고거래글을 찾지 못했습니다."),
     No_Match_Auth_Id_And_Seller_Id(HttpStatus.UNAUTHORIZED, "u-0009",
     		"유저 정보(Id)가 작성자 정보(Id)와 일치하지 않습니다."),
-	
+    No_Search_Post_Counter_Exception(HttpStatus.NOT_ACCEPTABLE, "u-0012",
+    		"해당하는 중고거래 조회 정보를 찾지 못했습니다."),
     ;
 	
 	private final HttpStatus httpStatus;

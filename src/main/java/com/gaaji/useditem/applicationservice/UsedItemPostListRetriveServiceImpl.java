@@ -17,6 +17,7 @@ import com.gaaji.useditem.controller.dto.PreviewPostCount;
 import com.gaaji.useditem.controller.dto.TownToken;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
+import com.gaaji.useditem.exception.NoSearchPostCounterException;
 import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.UsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
@@ -57,8 +58,7 @@ public class UsedItemPostListRetriveServiceImpl implements UsedItemPostListRetri
 	private List<PostListRetirveResponse> getPostListRetirveResponse(List<PreviewPost> previewPostList) {
 		List<PostListRetirveResponse> postListRetirveResponseList = new ArrayList<PostListRetirveResponse>();
 		for(PreviewPost previewPost : previewPostList) {
-			PreviewPostCount previewPostCount = this.usedItemPostCounterRepository.findPreviewCountByPostId(previewPost.getPostId()).orElseThrow(() -> new RuntimeException());
-			//TODO 예외 처리 추가
+			PreviewPostCount previewPostCount = this.usedItemPostCounterRepository.findPreviewCountByPostId(previewPost.getPostId()).orElseThrow(() -> new NoSearchPostCounterException());
 			PostListRetirveResponse postListRetirveResponse = PostListRetirveResponse.of(previewPost, previewPostCount);
 			postListRetirveResponseList.add(postListRetirveResponse);
 		}
