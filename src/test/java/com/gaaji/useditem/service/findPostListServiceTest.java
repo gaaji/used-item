@@ -1,6 +1,7 @@
 package com.gaaji.useditem.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,6 +33,8 @@ import com.gaaji.useditem.domain.Town;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
+import com.gaaji.useditem.exception.NoSearchPostCounterException;
+import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.JpaUsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
 
@@ -165,5 +168,20 @@ public class findPostListServiceTest {
 		 assertThat(response2.getPreviewPostCount().getViewCount()).isEqualTo(0);
 		
 	}
+	
+	@Test
+	void 조회예외() throws Exception {
+		UsedItemPost usedItemPost = UsedItemPost.of(UsedItemPostId.of("foo"), SellerId.of("bar"),
+				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"),
+				Collections.emptyList());
+		// when
+		jpaUsedItemPostRepository.save(usedItemPost);
+
+		TownToken townToken = new TownToken();
+		townToken.setAddress("address");
+		townToken.setTownId("townID");
+		 assertThatThrownBy(()->usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), 0)).isInstanceOf(NoSearchPostCounterException.class);
+	}
+	
 
 }
