@@ -52,88 +52,27 @@ public class findPostListServiceTest {
 	@Test
 	void 조회리스트서비스() throws Exception {
 		// given
-
+		 String foo = "foo";
+		 int num =9;
 		
+		 for(int i = 1; i<10;i++) {
+			 UsedItemPost usedItemPost = UsedItemPost.of(UsedItemPostId.of(foo+i), SellerId.of("bar"),
+						Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
 
-		UsedItemPost usedItemPost1 = UsedItemPost.of(UsedItemPostId.of("foo1"), SellerId.of("bar"),
-				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
+				UsedItemPostCounter counter = UsedItemPostCounter.of(UsedItemPostId.of(foo+i), Counter.of());
+				// when
+				jpaUsedItemPostRepository.save(usedItemPost);
+				this.jpaUsedItemPostCounterRepository.save(counter);
 
-		UsedItemPostCounter counter1 = UsedItemPostCounter.of(UsedItemPostId.of("foo1"), Counter.of());
-		// when
-		jpaUsedItemPostRepository.save(usedItemPost1);
-		this.jpaUsedItemPostCounterRepository.save(counter1);
+		 }
 
-		UsedItemPost usedItemPost2 = UsedItemPost.of(UsedItemPostId.of("foo2"), SellerId.of("bar"),
-				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
-
-		UsedItemPostCounter counter2 = UsedItemPostCounter.of(UsedItemPostId.of("foo2"), Counter.of());
-		// when
-		jpaUsedItemPostRepository.save(usedItemPost2);
-		this.jpaUsedItemPostCounterRepository.save(counter2);
-
-		UsedItemPost usedItemPost3 = UsedItemPost.of(UsedItemPostId.of("foo3"), SellerId.of("bar"),
-				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
-
-		UsedItemPostCounter counter3 = UsedItemPostCounter.of(UsedItemPostId.of("foo3"), Counter.of());
-		// when
-		jpaUsedItemPostRepository.save(usedItemPost3);
-		this.jpaUsedItemPostCounterRepository.save(counter3);
-
-		UsedItemPost usedItemPost4 = UsedItemPost.of(UsedItemPostId.of("foo4"), SellerId.of("bar"),
-				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
-
-		UsedItemPostCounter counter4 = UsedItemPostCounter.of(UsedItemPostId.of("foo4"), Counter.of());
-		// when
-		jpaUsedItemPostRepository.save(usedItemPost4);
-		this.jpaUsedItemPostCounterRepository.save(counter4);
-
-		UsedItemPost usedItemPost5 = UsedItemPost.of(UsedItemPostId.of("foo5"), SellerId.of("bar"),
-				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
-
-		UsedItemPostCounter counter5 = UsedItemPostCounter.of(UsedItemPostId.of("foo5"), Counter.of());
-		// when
-		jpaUsedItemPostRepository.save(usedItemPost5);
-		this.jpaUsedItemPostCounterRepository.save(counter5);
-
-		UsedItemPost usedItemPost6 = UsedItemPost.of(UsedItemPostId.of("foo6"), SellerId.of("bar"),
-				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
-
-		UsedItemPostCounter counter6 = UsedItemPostCounter.of(UsedItemPostId.of("foo6"), Counter.of());
-		// when
-		jpaUsedItemPostRepository.save(usedItemPost6);
-		this.jpaUsedItemPostCounterRepository.save(counter6);
-
-		UsedItemPost usedItemPost7 = UsedItemPost.of(UsedItemPostId.of("foo7"), SellerId.of("bar"),
-				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
-
-		UsedItemPostCounter counter7 = UsedItemPostCounter.of(UsedItemPostId.of("foo7"), Counter.of());
-		// when
-		jpaUsedItemPostRepository.save(usedItemPost7);
-		this.jpaUsedItemPostCounterRepository.save(counter7);
-
-		UsedItemPost usedItemPost8 = UsedItemPost.of(UsedItemPostId.of("foo8"), SellerId.of("bar"),
-				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
-
-		UsedItemPostCounter counter8 = UsedItemPostCounter.of(UsedItemPostId.of("foo8"), Counter.of());
-		// when
-		jpaUsedItemPostRepository.save(usedItemPost8);
-		this.jpaUsedItemPostCounterRepository.save(counter8);
-		
-		UsedItemPost usedItemPost9 = UsedItemPost.of(UsedItemPostId.of("foo9"), SellerId.of("bar"),
-				Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
-
-		UsedItemPostCounter counter9 = UsedItemPostCounter.of(UsedItemPostId.of("foo9"), Counter.of());
-		// when
-		jpaUsedItemPostRepository.save(usedItemPost9);
-		this.jpaUsedItemPostCounterRepository.save(counter9);
 
 		TownToken townToken = new TownToken("townID", true);
 	
 		 List<PostListRetirveResponse> list1 = usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), 0);
 		 List<PostListRetirveResponse> list2 = usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), 1);
-		 String foo = "foo";
-		 int num =9;
-		 String answer = "";
+		
+		 
 		 
 		 for(PostListRetirveResponse response: list1) {
 			 assertThat(response.getPreviewPost().getPostId()).isEqualTo(foo+num);
