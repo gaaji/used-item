@@ -1,5 +1,6 @@
 package com.gaaji.useditem.repository;
 
+import com.gaaji.useditem.controller.dto.PreviewPostCount;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import java.util.Optional;
@@ -27,6 +28,11 @@ public class UsedItemPostCounterRepositoryImpl implements
 	@Override
 	public void delete(UsedItemPostId id) {
 		jpaUsedItemPostCounterRepository.deleteById(id);
+	}
+
+	@Override
+	public Optional<PreviewPostCount> findPreviewCountByPostId(String postId) {
+		return jpaUsedItemPostCounterRepository.findPreviewCountByPostId(postId);
 	}
 
 

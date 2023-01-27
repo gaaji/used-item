@@ -1,5 +1,8 @@
 package com.gaaji.useditem.domain;
 
+import com.gaaji.useditem.controller.dto.PostUpdateRequest;
+import com.gaaji.useditem.exception.NoMatchAuthIdAndSellerIdException;
+import com.gaaji.useditem.exception.ReservationStatusChangePriceException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +54,8 @@ public class UsedItemPost {
     @AttributeOverride(name = "id", column = @Column(name = "town_id"))
     @Embedded
     private Town town;
+    
+    private String representPictureUrl;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post"
             , cascade = CascadeType.ALL, orphanRemoval = true)
@@ -62,17 +67,47 @@ public class UsedItemPost {
         return new UsedItemPost(postId,sellerId,post,price
                 ,canSuggest,wishPlace
                 ,TradeStatus.SELLING,PurchaserId.of(null)
-                ,town,new ArrayList<>());
+                ,town, null, new ArrayList<>());
     }
     // 글 내용이 바뀐다.
-    public void modify(Post post, Price price, boolean canSuggest,WishPlace wishPlace,
-            List<UsedItemPicture> pictures){
+    public void modify(SellerId authId, PostUpdateRequest updateDto){
 
-        this.post = post;
-        this.price = price;
-        this.canSuggest =canSuggest;
-        this.wishPlace = wishPlace;
-        this.pictures = pictures;
+        validateCanModifyPost(authId, updateDto);
+
+        this.post = post.modify(updateDto.getTitle(), updateDto.getContents(), updateDto.getCategory(),
+                updateDto.getIsHide());
+        this.price = Price.of(updateDto.getPrice());
+        this.canSuggest = updateDto.getCanSuggest();
+        this.wishPlace = WishPlace.of(updateDto.getWishX(),updateDto.getWishY(),updateDto.getWishText());
+
+
+        updatePicture(updateDto.getUrls());
+
+    }
+
+    private void validateCanModifyPost(SellerId authId, PostUpdateRequest updateDto) {
+        validateSellerId(authId);
+        validateTradeStatus(updateDto);
+    }
+
+    private void validateTradeStatus(PostUpdateRequest updateDto) {
+        if(tradeStatus==TradeStatus.RESERVATION && updateDto.getPrice() != getPrice())
+            throw new ReservationStatusChangePriceException();
+    }
+
+    private void validateSellerId(SellerId authId) {
+        if(!this.sellerId.equals(authId))
+            throw new NoMatchAuthIdAndSellerIdException();
+    }
+
+    private void updatePicture(List<String> urls){
+            List<UsedItemPicture> changedPictures = new ArrayList<>();
+        for (String url : urls)
+            for (UsedItemPicture picture : pictures)
+                if(picture.equals(url))
+                    changedPictures.add(picture);
+        this.pictures.clear();
+        this.pictures.addAll(changedPictures);
     }
 
     public void reverseHide(){
@@ -105,7 +140,7 @@ public class UsedItemPost {
         return Objects.hash(postId, sellerId, post, price, canSuggest, wishPlace, tradeStatus,
                 purchaserId, town, pictures);
     }
-	public boolean checkSellerId(String authId) {
+	public boolean validateSellerId(String authId) {
 		return this.sellerId.getId().equals(authId);
 	}
 

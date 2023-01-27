@@ -21,6 +21,7 @@ public class WishPlace {
         return new WishPlace(placeX,placeY,placeText);
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

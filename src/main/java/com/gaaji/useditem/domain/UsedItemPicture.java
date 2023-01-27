@@ -1,5 +1,6 @@
 package com.gaaji.useditem.domain;
 
+import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,5 +40,22 @@ public class UsedItemPicture {
 
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || String.class != o.getClass()) {
+            return false;
+        }
+        String that = (String) o;
+        return Objects.equals(url, that);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url);
     }
 }

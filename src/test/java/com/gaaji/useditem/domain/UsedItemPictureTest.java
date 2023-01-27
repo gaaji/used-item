@@ -12,6 +12,8 @@ import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.domain.WishPlace;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class UsedItemPictureTest {
@@ -51,6 +53,37 @@ class UsedItemPictureTest {
         postField.setAccessible(true);
         //then
         assertThat(postField.get(picture)).isEqualTo(usedItemPost);
+    }
+    
+    @Test
+    void Url비교_테스트 () throws Exception{
+        //given
+        String url = "bar";
+
+        //when
+        UsedItemPicture usedItemPicture = UsedItemPicture.of(UsedItemPictureId.of("foo"), url);
+        //then
+        assertThat(usedItemPicture).isEqualTo(url);
+    
+    }
+
+    @Test
+    void 리스트_Url비교_테스트 () throws Exception{
+        //given
+        String url = "bar";
+        List<UsedItemPicture> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            list.add(UsedItemPicture.of(UsedItemPictureId.of("foo"), url + i));
+        }
+
+
+        //when
+        String o = url + "0";
+        boolean contains = list.contains(o);
+        //then
+        assertThat(list.get(0).equals(o)).isTrue();
+
+
     }
 
 }
