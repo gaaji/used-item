@@ -43,7 +43,9 @@ public enum UsedItemErrorCode implements ErrorCode {
             "해당하는 중고거래 조회 정보를 찾지 못했습니다."),
     RESERVATION_STATUS_CHANGE_PRICE(HttpStatus.BAD_REQUEST,"u-0013","예약 중엔 가격을 변경할 수 없습니다."),
 
-
+    BOTH_SIZE_DOSE_NOT_MATCHED(HttpStatus.BAD_REQUEST,"u-0014","인덱스의 개수와 파일의 개수가 맞지 않습니다."),
+    INDEX_OUT_OF_BOUNDS(HttpStatus.BAD_REQUEST,"u-0015","인덱스가 범위를 초과했습니다.")
+    ,
 
     ;
 	

@@ -1,10 +1,9 @@
 package com.gaaji.useditem.service;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.gaaji.useditem.adaptor.S3Uploader;
-import com.gaaji.useditem.applicationservice.UsedItemPicturesCreateService;
+import com.gaaji.useditem.applicationservice.UsedItemPicturesUploadService;
 import com.gaaji.useditem.applicationservice.UsedItemPostUpdateService;
 import com.gaaji.useditem.controller.dto.PostUpdateRequest;
 import com.gaaji.useditem.domain.Post;
@@ -23,8 +22,6 @@ import com.gaaji.useditem.repository.UsedItemPostRepository;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,14 +53,14 @@ class UsedItemPostUpdateServiceTest {
         usedItemPostRepository.save(usedItemPost);
         S3Uploader s3Uploader = new StubS3Uploader();
 
-        UsedItemPicturesCreateService usedItemPicturesCreateService
-                = new UsedItemPicturesCreateService(s3Uploader, usedItemPostRepository);
+        UsedItemPicturesUploadService usedItemPicturesUploadService
+                = new UsedItemPicturesUploadService(s3Uploader, usedItemPostRepository);
 
         MultipartFile[] files = new MultipartFile[5];
         String postId = "foo";
 
         //when
-        usedItemPicturesCreateService.createPictures(postId, files);
+        usedItemPicturesUploadService.createPictures(postId, files);
     }
 
 
