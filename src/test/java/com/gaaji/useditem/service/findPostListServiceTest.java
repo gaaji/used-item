@@ -110,5 +110,42 @@ public class findPostListServiceTest {
 		 assertThatThrownBy(()->usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), 0)).isInstanceOf(NoSearchPostCounterException.class);
 	}
 	
+	@Test
+	void 내조회리스트서비스() throws Exception {
+		// given
+		 String foo = "foo";
+		 int num =9;
+		
+		 for(int i = 1; i<10;i++) {
+			 UsedItemPost usedItemPost = UsedItemPost.of(UsedItemPostId.of(foo+i), SellerId.of("bar"),
+						Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
+
+				UsedItemPostCounter counter = UsedItemPostCounter.of(UsedItemPostId.of(foo+i), Counter.of());
+				// when
+				jpaUsedItemPostRepository.save(usedItemPost);
+				this.jpaUsedItemPostCounterRepository.save(counter);
+
+		 }
+
+
+		TownToken townToken = new TownToken("townID", true);
+	
+		 List<PostListRetirveResponse> list = usedItemPostListRetriveService.retriveUsedItemMyPostList("bar");
+		 
+		 
+		 for(PostListRetirveResponse response: list) {
+			 assertThat(response.getPreviewPost().getPostId()).isEqualTo(foo+num);
+			 assertThat(response.getPreviewPost().getRepresentPictureUrl()).isEqualTo(null);
+			 assertThat(response.getPreviewPost().getTitle()).isEqualTo("title");
+			 assertThat(response.getPreviewPost().getAddress()).isEqualTo("address");
+			 assertThat(response.getPreviewPost().getCreatedAt()).isNotNull();
+			 assertThat(response.getPreviewPost().getPrice()).isEqualTo(1000);
+			 assertThat(response.getPreviewPostCount().getInterestCount()).isEqualTo(0);
+			 assertThat(response.getPreviewPostCount().getViewCount()).isEqualTo(0);
+			 num--;
+		 }
+		 
+		
+	}
 
 }
