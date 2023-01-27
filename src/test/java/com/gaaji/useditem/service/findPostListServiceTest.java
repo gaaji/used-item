@@ -30,6 +30,7 @@ import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
+import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
@@ -81,6 +82,8 @@ public class findPostListServiceTest {
 			 assertThat(response.getPreviewPost().getAddress()).isEqualTo("address");
 			 assertThat(response.getPreviewPost().getCreatedAt()).isNotNull();
 			 assertThat(response.getPreviewPost().getPrice()).isEqualTo(1000);
+			 assertThat(response.getPreviewPost().getTradeStatus()).isEqualTo(TradeStatus.SELLING);
+			 assertThat(response.getPreviewPost().isHide()).isEqualTo(false);
 			 assertThat(response.getPreviewPostCount().getInterestCount()).isEqualTo(0);
 			 assertThat(response.getPreviewPostCount().getViewCount()).isEqualTo(0);
 			 num--;
@@ -93,6 +96,8 @@ public class findPostListServiceTest {
 		 assertThat(response2.getPreviewPost().getAddress()).isEqualTo("address");
 		 assertThat(response2.getPreviewPost().getCreatedAt()).isNotNull();
 		 assertThat(response2.getPreviewPost().getPrice()).isEqualTo(1000);
+		 assertThat(response2.getPreviewPost().getTradeStatus()).isEqualTo(TradeStatus.SELLING);
+		 assertThat(response2.getPreviewPost().isHide()).isEqualTo(false);
 		 assertThat(response2.getPreviewPostCount().getInterestCount()).isEqualTo(0);
 		 assertThat(response2.getPreviewPostCount().getViewCount()).isEqualTo(0);
 		
@@ -108,6 +113,8 @@ public class findPostListServiceTest {
 		TownToken townToken = new TownToken("townID", true);
 
 		 assertThatThrownBy(()->usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), 0)).isInstanceOf(NoSearchPostCounterException.class);
+		 assertThatThrownBy(()->usedItemPostListRetriveService.retriveUsedItemMyPostList("bar")).isInstanceOf(NoSearchPostCounterException.class);
+
 	}
 	
 	@Test
@@ -140,6 +147,8 @@ public class findPostListServiceTest {
 			 assertThat(response.getPreviewPost().getAddress()).isEqualTo("address");
 			 assertThat(response.getPreviewPost().getCreatedAt()).isNotNull();
 			 assertThat(response.getPreviewPost().getPrice()).isEqualTo(1000);
+			 assertThat(response.getPreviewPost().getTradeStatus()).isEqualTo(TradeStatus.SELLING);
+			 assertThat(response.getPreviewPost().isHide()).isEqualTo(false);
 			 assertThat(response.getPreviewPostCount().getInterestCount()).isEqualTo(0);
 			 assertThat(response.getPreviewPostCount().getViewCount()).isEqualTo(0);
 			 num--;

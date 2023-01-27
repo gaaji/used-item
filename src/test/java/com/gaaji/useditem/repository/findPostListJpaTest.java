@@ -25,6 +25,7 @@ import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
+import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
@@ -69,6 +70,8 @@ public class findPostListJpaTest {
 			assertThat(response.getPreviewPost().getAddress()).isEqualTo("address");
 			assertThat(response.getPreviewPost().getCreatedAt()).isNotNull();
 			assertThat(response.getPreviewPost().getPrice()).isEqualTo(1000);
+			assertThat(response.getPreviewPost().getTradeStatus()).isEqualTo(TradeStatus.SELLING);
+			assertThat(response.getPreviewPost().isHide()).isEqualTo(false);
 			assertThat(response.getPreviewPostCount().getInterestCount()).isEqualTo(0);
 			assertThat(response.getPreviewPostCount().getViewCount()).isEqualTo(0);
 
@@ -104,6 +107,8 @@ public class findPostListJpaTest {
 			assertThat(response.getPreviewPost().getAddress()).isEqualTo("address");
 			assertThat(response.getPreviewPost().getCreatedAt()).isNotNull();
 			assertThat(response.getPreviewPost().getPrice()).isEqualTo(1000);
+			assertThat(response.getPreviewPost().getTradeStatus()).isEqualTo(TradeStatus.SELLING);
+			assertThat(response.getPreviewPost().isHide()).isEqualTo(false);
 			assertThat(response.getPreviewPostCount().getInterestCount()).isEqualTo(0);
 			assertThat(response.getPreviewPostCount().getViewCount()).isEqualTo(0);
 
