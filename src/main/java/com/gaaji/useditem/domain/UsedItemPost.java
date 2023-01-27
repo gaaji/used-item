@@ -54,6 +54,8 @@ public class UsedItemPost {
     @AttributeOverride(name = "id", column = @Column(name = "town_id"))
     @Embedded
     private Town town;
+    
+    private String representPictureUrl;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post"
             , cascade = CascadeType.ALL, orphanRemoval = true)
@@ -65,7 +67,7 @@ public class UsedItemPost {
         return new UsedItemPost(postId,sellerId,post,price
                 ,canSuggest,wishPlace
                 ,TradeStatus.SELLING,PurchaserId.of(null)
-                ,town,new ArrayList<>());
+                ,town, null, new ArrayList<>());
     }
     // 글 내용이 바뀐다.
     public void modify(SellerId authId, PostUpdateRequest updateDto){

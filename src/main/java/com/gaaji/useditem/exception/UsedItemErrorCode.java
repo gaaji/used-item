@@ -39,8 +39,12 @@ public enum UsedItemErrorCode implements ErrorCode {
             "JSON 파싱 과정에서 오류가 발생"),
 
 
-
+    No_Search_Post_Counter_Exception(HttpStatus.NOT_ACCEPTABLE, "u-0012",
+            "해당하는 중고거래 조회 정보를 찾지 못했습니다."),
     RESERVATION_STATUS_CHANGE_PRICE(HttpStatus.BAD_REQUEST,"u-0013","예약 중엔 가격을 변경할 수 없습니다."),
+
+
+
     ;
 	
 	private final HttpStatus httpStatus;
