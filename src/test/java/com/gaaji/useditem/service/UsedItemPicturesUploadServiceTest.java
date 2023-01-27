@@ -149,7 +149,7 @@ class UsedItemPicturesUploadServiceTest {
 
 
         MultipartFile[] newFiles = new MultipartFile[5];
-        int[] indexes = new int[]{100,6};
+        int[] indexes = new int[]{100,6,1,2,3};
         //when
         //then
         assertThatThrownBy(() -> usedItemPicturesUploadService.createPictures(postId,newFiles,indexes))
