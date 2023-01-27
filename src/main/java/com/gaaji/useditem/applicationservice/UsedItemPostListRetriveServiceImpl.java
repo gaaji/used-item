@@ -66,4 +66,16 @@ public class UsedItemPostListRetriveServiceImpl implements UsedItemPostListRetri
 		return postListRetirveResponseList;
 	}
 
+	@Override
+	public List<PostListRetirveResponse> retriveUsedItemMyPostList(String authId) {
+                        
+        List<PreviewPost> previewPostList = this.usedItemPostRepository.findByauthId(authId);
+        if(previewPostList.size() > 0) {
+        	return getPostListRetirveResponse(previewPostList);
+        } else {
+        	return null;
+        }
+	}
+
+
 }

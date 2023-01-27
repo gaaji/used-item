@@ -8,4 +8,7 @@ public interface UsedItemPostListRetriveService {
 
 	List<PostListRetirveResponse> retriveUsedItemPostList(String townToken, int pageNum);
 
+	List<PostListRetirveResponse> retriveUsedItemMyPostList(String authId);
+
+
 }

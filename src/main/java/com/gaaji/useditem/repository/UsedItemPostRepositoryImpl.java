@@ -49,6 +49,11 @@ public class UsedItemPostRepositoryImpl implements
 		return jpaUsedItemPostRepository.findByTownId(townId, pageRequest);
 	}
 
+	@Override
+	public List<PreviewPost> findByauthId(String authId) {
+		return jpaUsedItemPostRepository.findByauthId(authId);
+	}
+
 
 
 }

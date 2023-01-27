@@ -32,4 +32,11 @@ public class UsedItemPostListRetriveController {
     	List<PostListRetirveResponse> posts = usedItemPostListRetriveService.retriveUsedItemPostList(townToken, pageNum);
         return ResponseEntity.status(HttpStatus.CREATED).body(posts);
     }
+    
+    @GetMapping("/my")
+    public ResponseEntity<List<PostListRetirveResponse>> createUsedItemPost(@RequestHeader(HttpHeaders.AUTHORIZATION) String authId, 
+    		@RequestHeader("X-TOWN-TOKEN") String townToken) {
+    	List<PostListRetirveResponse> posts = usedItemPostListRetriveService.retriveUsedItemMyPostList(authId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(posts);
+    }
 }
