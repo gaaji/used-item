@@ -154,6 +154,14 @@ public class UsedItemPost {
         this.pictures.addAll(list);
 
     }
+    public void addPictures(List<UsedItemPicture> newPictures, int[] indexes) {
+        newPictures.forEach((p) -> p.associateWithPost(this));
+        int i = 0;
+        for (int index : indexes) {
+            this.pictures.add(index, newPictures.get(i++));
+        }
+
+    }
 
     public String getTitle() {
         return post.getTitle();
@@ -208,4 +216,6 @@ public class UsedItemPost {
     public String getSellerId() {
         return this.sellerId.getId();
     }
+
+
 }
