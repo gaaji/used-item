@@ -22,7 +22,7 @@ public class UsedItemReverseHideServiceImpl implements UsedItemReverseHideServic
 	@Override
 	public void reverseHide(String authId, String postId) {
 		UsedItemPost usedItemPost = this.usedItemPostRepository.findById(UsedItemPostId.of(postId)).orElseThrow(() -> new NoSearchPostException()); //TODO 여기도 예외 처리
-		if(usedItemPost.checkSellerId(authId)) {
+		if(usedItemPost.validateSellerId(authId)) {
 			usedItemPost.reverseHide();
 		} else {
 			throw new NoMatchAuthIdAndSellerIdException();

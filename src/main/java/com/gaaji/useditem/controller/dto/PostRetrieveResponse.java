@@ -59,7 +59,7 @@ public class PostRetrieveResponse {
         this.sellerId =seller.getAuthId();
         this.sellerNickname = seller.getNickname();
         this.sellerMannerTemperature = seller.getMannerTemperature();
-        this.isMine = post.checkSellerId(authId);
+        this.isMine = post.validateSellerId(authId);
         this.picturesUrl = post.getPicturesUrl();
 
     }

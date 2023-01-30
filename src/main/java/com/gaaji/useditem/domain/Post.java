@@ -31,13 +31,26 @@ public class Post {
         this.createdAt = LocalDateTime.now();
         this.isHide = false;
     }
+    private Post(String title, String contents, String category, LocalDateTime createdAt, boolean isHide) {
+        this.title = title;
+        this.contents = contents;
+        this.category = category;
+        this.createdAt = createdAt;
+        this.isHide = isHide;
+    }
     public static Post of(String title, String contents, String category){
         if(!StringUtils.hasText(title)) throw new InputNullDataOnTitleException();
         if(!StringUtils.hasText(category)) throw new InputNullDataOnCategoryException();
 
         return new Post(title,contents,category);
     }
+    public Post modify(String title, String contents, String category, boolean isHide){
+        if(!StringUtils.hasText(title)) throw new InputNullDataOnTitleException();
+        if(!StringUtils.hasText(category)) throw new InputNullDataOnCategoryException();
 
+
+        return new Post(title,contents,category,this.createdAt,isHide);
+    }
     public void reverseHide(){
         isHide = !isHide;
     }
