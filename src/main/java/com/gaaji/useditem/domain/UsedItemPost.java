@@ -108,6 +108,7 @@ public class UsedItemPost {
                     changedPictures.add(picture);
         this.pictures.clear();
         this.pictures.addAll(changedPictures);
+        setRepresentPictureUrl();
     }
 
     public void reverseHide(){
@@ -150,17 +151,28 @@ public class UsedItemPost {
 
     public void addPictures(List<UsedItemPicture> list) {
         list.forEach((p) -> p.associateWithPost(this));
+
         this.pictures.clear();
         this.pictures.addAll(list);
+        setRepresentPictureUrl();
 
     }
+
+    private void setRepresentPictureUrl() {
+        if (pictures.isEmpty()) {
+            this.representPictureUrl = null;
+            return;
+        }
+        this.representPictureUrl = pictures.get(0).getUrl();
+    }
+
     public void addPictures(List<UsedItemPicture> newPictures, int[] indexes) {
         newPictures.forEach((p) -> p.associateWithPost(this));
         int i = 0;
         for (int index : indexes) {
             this.pictures.add(index, newPictures.get(i++));
         }
-
+        setRepresentPictureUrl();
     }
 
     public String getTitle() {
@@ -215,6 +227,10 @@ public class UsedItemPost {
 
     public String getSellerId() {
         return this.sellerId.getId();
+    }
+
+    public String getRepresentPictureUrl(){
+        return this.representPictureUrl;
     }
 
 
