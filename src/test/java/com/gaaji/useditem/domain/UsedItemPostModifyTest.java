@@ -8,6 +8,7 @@ import com.gaaji.useditem.exception.ReservationStatusChangePriceException;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import org.assertj.core.api.Assertions;
@@ -275,6 +276,86 @@ class UsedItemPostModifyTest {
 
         //then
         assertThat(usedItemPost.getRepresentPictureUrl()).isEqualTo("url10");
+    }
+    @Test
+    void 정상_사진이_전부_삭제될_경우_대표URL이_null() throws Exception {
+        //given
+        UsedItemPostId itemPostId = UsedItemPostId.of("foo");
+        SellerId sellerId = SellerId.of("seller");
+        Post post = Post.of("foo", "bar", "foobar");
+        Price price = Price.of(1000L);
+        boolean canSuggest = false;
+        WishPlace wishPlace = null;
+        Town town = Town.of("foo", "bar");
+        UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest,
+                wishPlace,
+                town
+        );
+
+        List<UsedItemPicture> pictures = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            pictures.add(UsedItemPicture.of(UsedItemPictureId.of(UUID.randomUUID().toString()),
+                    "url" + i));
+        }
+        usedItemPost.addPictures(pictures);
+
+        String title = "title";
+        String content = "content";
+        String category = "category";
+        int updatedPrice = 10000;
+        boolean updatedHide = true;
+        boolean updatedSuggest = true;
+        PostUpdateRequest dto = new PostUpdateRequest(title, content, category, updatedPrice,
+                updatedHide, updatedSuggest, "", "", "", Collections.EMPTY_LIST);
+        //when
+        usedItemPost.modify(sellerId, dto);
+
+
+        //then
+        assertThat(usedItemPost.getRepresentPictureUrl()).isNull();
+    }
+
+    @Test
+    void 정상_사진의_순서가_바뀔_경우_대표_URL이_바뀐다() throws Exception {
+        //given
+        UsedItemPostId itemPostId = UsedItemPostId.of("foo");
+        SellerId sellerId = SellerId.of("seller");
+        Post post = Post.of("foo", "bar", "foobar");
+        Price price = Price.of(1000L);
+        boolean canSuggest = false;
+        WishPlace wishPlace = null;
+        Town town = Town.of("foo", "bar");
+        UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest,
+                wishPlace,
+                town
+        );
+
+        List<UsedItemPicture> pictures = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            pictures.add(UsedItemPicture.of(UsedItemPictureId.of(UUID.randomUUID().toString()),
+                    "url" + i));
+        }
+        usedItemPost.addPictures(pictures);
+
+        List<String> urls = new ArrayList<>();
+        urls.add("url1");
+        urls.add("url0");
+        urls.add("url2");
+        String title = "title";
+        String content = "content";
+        String category = "category";
+        int updatedPrice = 10000;
+        boolean updatedHide = true;
+        boolean updatedSuggest = true;
+        PostUpdateRequest dto = new PostUpdateRequest(title, content, category, updatedPrice,
+                updatedHide, updatedSuggest, "", "", "", urls);
+
+        String authorization = "seller";
+
+        //when
+        usedItemPost.modify(SellerId.of(authorization), dto);
+        //then
+        assertThat(usedItemPost.getRepresentPictureUrl()).isEqualTo("url1");
     }
 
     @Test
