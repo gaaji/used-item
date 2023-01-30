@@ -359,6 +359,61 @@ class UsedItemPostModifyTest {
     }
 
     @Test
+    void 정상_사진의_순서가_바뀔_경우_각_사진의_order가_바뀐다() throws Exception {
+        //given
+        UsedItemPostId itemPostId = UsedItemPostId.of("foo");
+        SellerId sellerId = SellerId.of("seller");
+        Post post = Post.of("foo", "bar", "foobar");
+        Price price = Price.of(1000L);
+        boolean canSuggest = false;
+        WishPlace wishPlace = null;
+        Town town = Town.of("foo", "bar");
+        UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest,
+                wishPlace,
+                town
+        );
+
+        List<UsedItemPicture> pictures = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            pictures.add(UsedItemPicture.of(UsedItemPictureId.of(UUID.randomUUID().toString()),
+                    "url" + i));
+        }
+        usedItemPost.addPictures(pictures);
+
+        List<String> urls = new ArrayList<>();
+        urls.add("url1");
+        urls.add("url0");
+        urls.add("url2");
+        String title = "title";
+        String content = "content";
+        String category = "category";
+        int updatedPrice = 10000;
+        boolean updatedHide = true;
+        boolean updatedSuggest = true;
+        PostUpdateRequest dto = new PostUpdateRequest(title, content, category, updatedPrice,
+                updatedHide, updatedSuggest, "", "", "", urls);
+
+        String authorization = "seller";
+        usedItemPost.modify(SellerId.of(authorization), dto);
+        Field fPictures = usedItemPost.getClass().getDeclaredField("pictures");
+        fPictures.setAccessible(true);
+        //when
+
+
+        List<UsedItemPicture> modified = (List<UsedItemPicture>) fPictures.get(usedItemPost);
+        //then
+
+        int o = 0;
+        for (UsedItemPicture usedItemPicture : modified) {
+            Field order = usedItemPicture.getClass().getDeclaredField("order");
+            order.setAccessible(true);
+            assertThat(order.get(usedItemPicture)).isSameAs(o++);
+        }
+
+
+    }
+
+    @Test
     void 예외_인덱스가_범위를_초과함() throws Exception {
         //given
         UsedItemPostId itemPostId = UsedItemPostId.of("foo");
