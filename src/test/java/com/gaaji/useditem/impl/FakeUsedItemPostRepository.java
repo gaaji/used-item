@@ -41,4 +41,10 @@ public class FakeUsedItemPostRepository implements UsedItemPostRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<PreviewPost> findByauthId(String authId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -39,6 +39,8 @@ public interface UsedItemPostRepository {
 
 	List<PreviewPost> findByTownId(String townId, PageRequest pageRequest);
 
+	List<PreviewPost> findByauthId(String authId);
+
 
 
 

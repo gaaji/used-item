@@ -2,6 +2,8 @@ package com.gaaji.useditem.controller.dto;
 
 import java.time.LocalDateTime;
 
+import com.gaaji.useditem.domain.TradeStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -18,5 +20,7 @@ public class PreviewPost {
 	private String address;
 	private LocalDateTime createdAt;
 	private Long price;
+	private TradeStatus tradeStatus;
+	private boolean isHide;
 	
 }
