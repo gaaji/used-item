@@ -67,6 +67,33 @@ class UsedItemPostTest {
 
         //then
         assertThat( ((List<UsedItemPicture>)pictures.get(usedItemPost)).size()).isSameAs(5);
+    }
+
+    @Test
+    void 사진_업로드_대표_URL_체크 () throws Exception{
+        UsedItemPostId itemPostId = UsedItemPostId.of("foo");
+        SellerId sellerId = SellerId.of("seller");
+        Post post = Post.of("foo", "bar", "foobar");
+        Price price = Price.of(1000L);
+        boolean canSuggest = false;
+        WishPlace wishPlace = null;
+        PurchaserId purchaserId = PurchaserId.of(null);
+        Town town = Town.of("foo", "bar");
+
+        UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest, wishPlace,
+                town
+        );
+
+        List<UsedItemPicture> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            list.add(UsedItemPicture.of(UsedItemPictureId.of("foo" + i), "url" + i));
+        }
+
+        //when
+        usedItemPost.addPictures(list);
+
+        assertThat(usedItemPost.getRepresentPictureUrl())
+                .isEqualTo("url0");
 
 
     }

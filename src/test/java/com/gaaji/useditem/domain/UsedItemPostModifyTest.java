@@ -239,7 +239,42 @@ class UsedItemPostModifyTest {
         assertThat(picturesUrl.get(2)).isEqualTo("url1");
         assertThat(picturesUrl.get(3)).isEqualTo("url11");
         assertThat(picturesUrl.get(4)).isEqualTo("url2");
+    }
 
+    @Test
+    void 정상_새로운_사진이_대표_URL로_설정됨() throws Exception {
+        //given
+        UsedItemPostId itemPostId = UsedItemPostId.of("foo");
+        SellerId sellerId = SellerId.of("seller");
+        Post post = Post.of("foo", "bar", "foobar");
+        Price price = Price.of(1000L);
+        boolean canSuggest = false;
+        WishPlace wishPlace = null;
+        Town town = Town.of("foo", "bar");
+        UsedItemPost usedItemPost = UsedItemPost.of(itemPostId, sellerId, post, price, canSuggest,
+                wishPlace,
+                town
+        );
+
+        List<UsedItemPicture> pictures = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            pictures.add(UsedItemPicture.of(UsedItemPictureId.of(UUID.randomUUID().toString()),
+                    "url" + i));
+        }
+        usedItemPost.addPictures(pictures);
+
+        List<UsedItemPicture> newPictures = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            newPictures.add(UsedItemPicture.of(UsedItemPictureId.of(UUID.randomUUID().toString()),
+                    "url1" + i));
+        }
+        int[] index = new int[]{0, 3};
+        //when
+
+        usedItemPost.addPictures(newPictures, index);
+
+        //then
+        assertThat(usedItemPost.getRepresentPictureUrl()).isEqualTo("url10");
     }
 
     @Test
