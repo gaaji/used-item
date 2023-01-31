@@ -163,6 +163,11 @@ public class UsedItemPost {
 
     }
 
+    public void updateTradeStatus(TradeStatus tradeStatus, String purchaserId) {
+		this.tradeStatus = tradeStatus;
+		this.purchaserId = PurchaserId.of(purchaserId);
+	}
+    
     public String getTitle() {
         return post.getTitle();
     }
@@ -216,6 +221,8 @@ public class UsedItemPost {
     public String getSellerId() {
         return this.sellerId.getId();
     }
-
+    public TradeStatus getTradeStatus() {
+        return tradeStatus;
+    }
 
 }
