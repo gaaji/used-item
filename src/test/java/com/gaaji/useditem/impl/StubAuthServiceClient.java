@@ -7,6 +7,6 @@ public class StubAuthServiceClient implements AuthServiceClient {
 
     @Override
     public RetrieveResponse retrieveAuth(String authId) {
-       return new RetrieveResponse("foo", "익명", 36.5);
+       return new RetrieveResponse("foo", "익명","foo", 36.5);
     }
 }

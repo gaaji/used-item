@@ -12,6 +12,7 @@ public class RetrieveResponse {
 
     private String authId;
     private String nickname;
+    private String pictureUrl;
     private double mannerTemperature;
 
 }

@@ -70,6 +70,7 @@ class UsedItemPostRetrieveServiceTest {
         assertThat(response.getSuggestCount()).isZero();
         assertThat(response.getInterestCount()).isZero();
         assertThat(response.getTradeStatus()).isEqualTo(TradeStatus.SELLING);
+        assertThat(response.getSellerProfilePictureUrl()).isEqualTo("foo");
     }
 
 }

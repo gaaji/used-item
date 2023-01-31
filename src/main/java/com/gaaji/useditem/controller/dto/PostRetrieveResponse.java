@@ -33,9 +33,11 @@ public class PostRetrieveResponse {
     private String townAddress;
     private String sellerId;
     private String sellerNickname;
+    private String sellerProfilePictureUrl;
     private double sellerMannerTemperature;
     private Boolean isMine;
     private TradeStatus tradeStatus;
+
 
     private List<String> picturesUrl;
 
@@ -64,6 +66,7 @@ public class PostRetrieveResponse {
         this.isMine = post.validateSellerId(authId);
         this.picturesUrl = post.getPicturesUrl();
         this.tradeStatus = post.getTradeStatus();
+        this.sellerProfilePictureUrl = seller.getPictureUrl();
 
     }
 
