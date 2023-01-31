@@ -7,6 +7,7 @@ import com.gaaji.useditem.domain.UsedItemPostId;
 
 import java.util.List;
 
+import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,8 @@ public interface JpaUsedItemPostRepository extends JpaRepository<UsedItemPost, U
             + "where u.sellerId.id =:authId order by u.post.createdAt desc")
 	List<PreviewPost> findByauthId(@Param("authId") String authId);
 
+
+	@Query("select distinct p from UsedItemPost p left join fetch UsedItemPicture up on up.post = p "
+			+ "where p.postId = :postId")
+	Optional<UsedItemPost> findPostByPostId(@Param("postId") UsedItemPostId usedItemPostId);
 }

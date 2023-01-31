@@ -7,16 +7,11 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Optional;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import com.gaaji.useditem.controller.dto.PreviewPost;
-import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.SellerId;
-import com.gaaji.useditem.domain.UsedItemPost;
-import com.gaaji.useditem.domain.UsedItemPostId;
 
 @RequiredArgsConstructor
 @Repository
@@ -27,7 +22,7 @@ public class UsedItemPostRepositoryImpl implements
 
     @Override
     public Optional<UsedItemPost> findByPostId(UsedItemPostId postId) {
-        return jpaUsedItemPostRepository.findById(postId);
+        return jpaUsedItemPostRepository.findPostByPostId(postId);
     }
 
     @Override
