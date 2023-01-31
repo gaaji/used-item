@@ -14,6 +14,7 @@ import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
+import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
@@ -76,6 +77,7 @@ class UsedItemPostRetrieveControllerTest {
                 .andExpect(jsonPath("$.sellerNickname").value("익명"))
                 .andExpect(jsonPath("$.sellerMannerTemperature").value(36.5))
                 .andExpect(jsonPath("$.isMine").value(true))
+                .andExpect(jsonPath("$.tradeStatus").value(TradeStatus.SELLING.name()))
                 .andDo(print());
 
 

@@ -236,4 +236,7 @@ public class UsedItemPost {
     }
 
 
+    public TradeStatus getTradeStatus() {
+        return tradeStatus;
+    }
 }
