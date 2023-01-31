@@ -24,6 +24,7 @@ import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.exception.CanNotUpdateTradeStatusException;
 import com.gaaji.useditem.exception.NoSearchPostCounterException;
 import com.gaaji.useditem.exception.NoSearchPostException;
+import com.gaaji.useditem.exception.TradeStatusIsNotFinishException;
 import com.gaaji.useditem.repository.JpaUsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
 
@@ -39,7 +40,7 @@ public class UpdateTradeStatusServiceTest {
     UsedItemPostUpdateTradeStatusService usedItemPostUpdateTradeStatusService;
     
     @Test
-    void 삭제서비스 () throws Exception{
+    void 상태변경 () throws Exception{
         //given
 
     	UsedItemPost usedItemPost = UsedItemPost.of(
@@ -64,12 +65,19 @@ public class UpdateTradeStatusServiceTest {
         assertThat(find.getTradeStatus()).isEqualTo(TradeStatus.SELLING);
         assertThat(find.getPurchaserId()).isEqualTo(PurchaserId.of(null));
         
-        usedItemPostUpdateTradeStatusService.updateTradeStatus("bar", "foo", "ccc", TradeStatus.UNCHANGEABLE);
+		assertThatThrownBy(()->usedItemPostUpdateTradeStatusService.updateTradeStatusUnchangeable("bar", "foo")).isInstanceOf(TradeStatusIsNotFinishException.class);
+
+        
+		usedItemPostUpdateTradeStatusService.updateTradeStatus("bar", "foo", "ccc", TradeStatus.FINISH);
+        assertThat(find.getTradeStatus()).isEqualTo(TradeStatus.FINISH);
+        assertThat(find.getPurchaserId()).isEqualTo(PurchaserId.of("ccc"));
+		
+        usedItemPostUpdateTradeStatusService.updateTradeStatusUnchangeable("bar", "foo");
         assertThat(find.getTradeStatus()).isEqualTo(TradeStatus.UNCHANGEABLE);
         assertThat(find.getPurchaserId()).isEqualTo(PurchaserId.of("ccc"));
         
 		assertThatThrownBy(()->usedItemPostUpdateTradeStatusService.updateTradeStatus("bar", "foo", "aaa", TradeStatus.FINISH)).isInstanceOf(CanNotUpdateTradeStatusException.class);
-        
+
         
 
     }

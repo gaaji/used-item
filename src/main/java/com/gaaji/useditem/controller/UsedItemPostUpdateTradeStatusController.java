@@ -15,7 +15,7 @@ import com.gaaji.useditem.domain.TradeStatus;
 
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("/posts/TradeStatus")
+@RequestMapping("/posts/tradeStatus")
 @RequiredArgsConstructor
 @RestController
 public class UsedItemPostUpdateTradeStatusController {
@@ -29,7 +29,7 @@ public class UsedItemPostUpdateTradeStatusController {
         return ResponseEntity.ok().build();
     }
 	
-	@PatchMapping("/{postId}")
+	@PatchMapping("/unchangeable/{postId}")
     public ResponseEntity<Void> updateTradeStatusUnchangeable(@RequestHeader(HttpHeaders.AUTHORIZATION) String authId, @RequestBody String postId) { 
 		usedItemPostUpdateTradeStatusService.updateTradeStatusUnchangeable(authId, postId);
         return ResponseEntity.ok().build();
