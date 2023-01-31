@@ -48,12 +48,18 @@ class UsedItemPictureTest {
         UsedItemPicture picture = UsedItemPicture.of(UsedItemPictureId.of("foo"), "url");
 
         //when
-        picture.associateWithPost(usedItemPost);
+        picture.associateWithPost(usedItemPost,0);
         Field postField = picture.getClass().getDeclaredField("post");
         postField.setAccessible(true);
+
+        Field order = picture.getClass().getDeclaredField("order");
+        order.setAccessible(true);
+
         //then
         assertThat(postField.get(picture)).isEqualTo(usedItemPost);
+        assertThat(order.get(picture)).isSameAs(0);
     }
+
     
     @Test
     void Url비교_테스트 () throws Exception{

@@ -11,6 +11,7 @@ import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
+import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
@@ -68,8 +69,8 @@ class UsedItemPostRetrieveServiceTest {
         assertThat(response.getChatCount()).isZero();
         assertThat(response.getSuggestCount()).isZero();
         assertThat(response.getInterestCount()).isZero();
-
-
+        assertThat(response.getTradeStatus()).isEqualTo(TradeStatus.SELLING);
+        assertThat(response.getSellerProfilePictureUrl()).isEqualTo("foo");
     }
 
 }

@@ -14,6 +14,7 @@ import com.gaaji.useditem.domain.Post;
 import com.gaaji.useditem.domain.Price;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.Town;
+import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
@@ -48,7 +49,7 @@ class UsedItemPostRetrieveControllerTest {
                         SellerId.of("foo"), Post.of("foo","bar","foobar")
                 , Price.of(10000000L), true, WishPlace.of("","","")
                 , Town.of("foo","bar")), UsedItemPostCounter.of(UsedItemPostId.of("foo"), Counter.of())
-                , new RetrieveResponse("foo", "익명",36.5), "foo"));
+                , new RetrieveResponse("foo", "익명","foo",36.5), "foo"));
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/posts/123")
@@ -76,6 +77,8 @@ class UsedItemPostRetrieveControllerTest {
                 .andExpect(jsonPath("$.sellerNickname").value("익명"))
                 .andExpect(jsonPath("$.sellerMannerTemperature").value(36.5))
                 .andExpect(jsonPath("$.isMine").value(true))
+                .andExpect(jsonPath("$.tradeStatus").value(TradeStatus.SELLING.name()))
+                .andExpect(jsonPath("$.sellerProfilePictureUrl").value("foo"))
                 .andDo(print());
 
 

@@ -5,6 +5,8 @@ import com.gaaji.useditem.exception.NoMatchAuthIdAndSellerIdException;
 import com.gaaji.useditem.exception.ReservationStatusChangePriceException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.AttributeOverride;
@@ -108,6 +110,8 @@ public class UsedItemPost {
                     changedPictures.add(picture);
         this.pictures.clear();
         this.pictures.addAll(changedPictures);
+        pictures.forEach(p -> p.changeOrder(pictures.indexOf(p)));
+        setRepresentPictureUrl();
     }
 
     public void reverseHide(){
@@ -149,18 +153,27 @@ public class UsedItemPost {
 	}
 
     public void addPictures(List<UsedItemPicture> list) {
-        list.forEach((p) -> p.associateWithPost(this));
         this.pictures.clear();
         this.pictures.addAll(list);
-
+        this.pictures.forEach(p -> p.associateWithPost(this, pictures.indexOf(p)));
+        setRepresentPictureUrl();
     }
+
+    private void setRepresentPictureUrl() {
+        if (pictures.isEmpty()) {
+            this.representPictureUrl = null;
+            return;
+        }
+        this.representPictureUrl = pictures.get(0).getUrl();
+    }
+
     public void addPictures(List<UsedItemPicture> newPictures, int[] indexes) {
-        newPictures.forEach((p) -> p.associateWithPost(this));
         int i = 0;
         for (int index : indexes) {
             this.pictures.add(index, newPictures.get(i++));
         }
-
+        this.pictures.forEach(p -> p.associateWithPost(this, pictures.indexOf(p)));
+        setRepresentPictureUrl();
     }
 
     public void updateTradeStatus(TradeStatus tradeStatus, String purchaserId) {
@@ -217,6 +230,7 @@ public class UsedItemPost {
     }
 
     public List<String> getPicturesUrl(){
+        Collections.sort(pictures);
         return this.pictures.stream().map(UsedItemPicture::getUrl)
                 .toList();
     }
@@ -225,6 +239,7 @@ public class UsedItemPost {
     public String getSellerId() {
         return this.sellerId.getId();
     }
+
     public TradeStatus getTradeStatus() {
         return tradeStatus;
     }
@@ -232,5 +247,11 @@ public class UsedItemPost {
     public PurchaserId getPurchaserId() {
         return purchaserId;
     }
+
+    public String getRepresentPictureUrl(){
+        return this.representPictureUrl;
+
+    }
+
 
 }

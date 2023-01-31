@@ -1,6 +1,7 @@
 package com.gaaji.useditem.controller.dto;
 
 import com.gaaji.useditem.adaptor.RetrieveResponse;
+import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import java.time.LocalDateTime;
@@ -32,8 +33,11 @@ public class PostRetrieveResponse {
     private String townAddress;
     private String sellerId;
     private String sellerNickname;
+    private String sellerProfilePictureUrl;
     private double sellerMannerTemperature;
     private Boolean isMine;
+    private TradeStatus tradeStatus;
+
 
     private List<String> picturesUrl;
 
@@ -61,6 +65,8 @@ public class PostRetrieveResponse {
         this.sellerMannerTemperature = seller.getMannerTemperature();
         this.isMine = post.validateSellerId(authId);
         this.picturesUrl = post.getPicturesUrl();
+        this.tradeStatus = post.getTradeStatus();
+        this.sellerProfilePictureUrl = seller.getPictureUrl();
 
     }
 
