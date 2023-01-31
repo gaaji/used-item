@@ -9,6 +9,7 @@ import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.exception.CanNotUpdateTradeStatusException;
 import com.gaaji.useditem.exception.NoMatchAuthIdAndSellerIdException;
 import com.gaaji.useditem.exception.NoSearchPostException;
+import com.gaaji.useditem.exception.TradeStatusIsNotFinishException;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,21 @@ public class UsedItemPostUpdateTradeStatusServiceImpl implements UsedItemPostUpd
 				usedItemPost.updateTradeStatus(tradeStatus, null);
 			} else {
 				usedItemPost.updateTradeStatus(tradeStatus, purchaserId);
+			}
+		} else {
+			throw new NoMatchAuthIdAndSellerIdException();
+		}
+	}
+
+	@Override
+	public void updateTradeStatusUnchangeable(String authId, String postId) {
+		UsedItemPost usedItemPost = this.usedItemPostRepository.findById(UsedItemPostId.of(postId)).orElseThrow(() -> new NoSearchPostException());
+		
+		if (usedItemPost.validateSellerId(authId)) {
+			if (usedItemPost.getTradeStatus().equals(TradeStatus.FINISH)) {
+				usedItemPost.updateTradeStatusUnchangeable();
+			}  else {
+				throw new TradeStatusIsNotFinishException();
 			}
 		} else {
 			throw new NoMatchAuthIdAndSellerIdException();

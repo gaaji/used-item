@@ -28,4 +28,10 @@ public class UsedItemPostUpdateTradeStatusController {
 		usedItemPostUpdateTradeStatusService.updateTradeStatus(authId, postId, purchaserId, tradeStatus);
         return ResponseEntity.ok().build();
     }
+	
+	@PatchMapping("/{postId}")
+    public ResponseEntity<Void> updateTradeStatusUnchangeable(@RequestHeader(HttpHeaders.AUTHORIZATION) String authId, @RequestBody String postId) { 
+		usedItemPostUpdateTradeStatusService.updateTradeStatusUnchangeable(authId, postId);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -168,6 +168,10 @@ public class UsedItemPost {
 		this.purchaserId = PurchaserId.of(purchaserId);
 	}
     
+    public void updateTradeStatusUnchangeable() {
+		this.tradeStatus = TradeStatus.UNCHANGEABLE;
+	}
+    
     public String getTitle() {
         return post.getTitle();
     }

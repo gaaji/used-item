@@ -6,4 +6,6 @@ public interface UsedItemPostUpdateTradeStatusService {
 
 	void updateTradeStatus(String authId, String postId, String purchaserId, TradeStatus tradeStatus);
 
+	void updateTradeStatusUnchangeable(String authId, String postId);
+
 }
