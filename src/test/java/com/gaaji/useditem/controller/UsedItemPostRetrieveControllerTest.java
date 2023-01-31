@@ -49,7 +49,7 @@ class UsedItemPostRetrieveControllerTest {
                         SellerId.of("foo"), Post.of("foo","bar","foobar")
                 , Price.of(10000000L), true, WishPlace.of("","","")
                 , Town.of("foo","bar")), UsedItemPostCounter.of(UsedItemPostId.of("foo"), Counter.of())
-                , new RetrieveResponse("foo", "익명",36.5), "foo"));
+                , new RetrieveResponse("foo", "익명","foo",36.5), "foo"));
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/posts/123")
@@ -78,6 +78,7 @@ class UsedItemPostRetrieveControllerTest {
                 .andExpect(jsonPath("$.sellerMannerTemperature").value(36.5))
                 .andExpect(jsonPath("$.isMine").value(true))
                 .andExpect(jsonPath("$.tradeStatus").value(TradeStatus.SELLING.name()))
+                .andExpect(jsonPath("$.sellerProfilePictureUrl").value("foo"))
                 .andDo(print());
 
 
