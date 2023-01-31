@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
+import com.gaaji.useditem.exception.CanNotUpdateTradeStatusException;
 import com.gaaji.useditem.exception.NoMatchAuthIdAndSellerIdException;
 import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
@@ -25,7 +26,7 @@ public class UsedItemPostUpdateTradeStatusServiceImpl implements UsedItemPostUpd
 
 		if (usedItemPost.validateSellerId(authId)) {
 			if (usedItemPost.getTradeStatus().equals(TradeStatus.UNCHANGEABLE)) {
-				// TODO 에러 발생
+				throw new CanNotUpdateTradeStatusException();
 			} else if (tradeStatus.equals(TradeStatus.SELLING)) {
 				usedItemPost.updateTradeStatus(tradeStatus, null);
 			} else {
