@@ -176,6 +176,15 @@ public class UsedItemPost {
         setRepresentPictureUrl();
     }
 
+    public void updateTradeStatus(TradeStatus tradeStatus, String purchaserId) {
+		this.tradeStatus = tradeStatus;
+		this.purchaserId = PurchaserId.of(purchaserId);
+	}
+    
+    public void updateTradeStatusUnchangeable() {
+		this.tradeStatus = TradeStatus.UNCHANGEABLE;
+	}
+    
     public String getTitle() {
         return post.getTitle();
     }
@@ -231,12 +240,18 @@ public class UsedItemPost {
         return this.sellerId.getId();
     }
 
-    public String getRepresentPictureUrl(){
-        return this.representPictureUrl;
-    }
-
-
     public TradeStatus getTradeStatus() {
         return tradeStatus;
     }
+    
+    public PurchaserId getPurchaserId() {
+        return purchaserId;
+    }
+
+    public String getRepresentPictureUrl(){
+        return this.representPictureUrl;
+
+    }
+
+
 }

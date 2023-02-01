@@ -44,9 +44,9 @@ public enum UsedItemErrorCode implements ErrorCode {
     RESERVATION_STATUS_CHANGE_PRICE(HttpStatus.BAD_REQUEST,"u-0013","예약 중엔 가격을 변경할 수 없습니다."),
 
     BOTH_SIZE_DOSE_NOT_MATCHED(HttpStatus.BAD_REQUEST,"u-0014","인덱스의 개수와 파일의 개수가 맞지 않습니다."),
-    INDEX_OUT_OF_BOUNDS(HttpStatus.BAD_REQUEST,"u-0015","인덱스가 범위를 초과했습니다.")
-    ,
-
+    INDEX_OUT_OF_BOUNDS(HttpStatus.BAD_REQUEST,"u-0015","인덱스가 범위를 초과했습니다."),
+    CAN_NOT_UPDATE_TRADE_STATUS(HttpStatus.BAD_REQUEST,"u-0016","거래 상태를 변경 할 수 없습니다."),
+    Trade_STATUS_IS_NOT_FINISH(HttpStatus.BAD_REQUEST,"u-0016","거래 완료가 되지 않아 상태를 변경 할 수 없습니다."),
     ;
 	
 	private final HttpStatus httpStatus;
