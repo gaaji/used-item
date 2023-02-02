@@ -10,7 +10,7 @@ on:
 permissions:
   contents: read
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/gaaji-used-item-service
+  DOCKER_IMAGE: ghcr.io/gaaji/used-item-service
   VERSION: ${{ github.sha }}
 
 jobs:
