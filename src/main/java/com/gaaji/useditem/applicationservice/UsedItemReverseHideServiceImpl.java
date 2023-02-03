@@ -21,7 +21,8 @@ public class UsedItemReverseHideServiceImpl implements UsedItemReverseHideServic
 
 	@Override
 	public void reverseHide(String authId, String postId) {
-		UsedItemPost usedItemPost = this.usedItemPostRepository.findById(UsedItemPostId.of(postId)).orElseThrow(() -> new NoSearchPostException()); 
+		UsedItemPost usedItemPost = this.usedItemPostRepository.findById(UsedItemPostId.of(postId)).orElseThrow(
+				NoSearchPostException::new);
 		if(usedItemPost.validateSellerId(authId)) {
 			usedItemPost.reverseHide();
 		} else {

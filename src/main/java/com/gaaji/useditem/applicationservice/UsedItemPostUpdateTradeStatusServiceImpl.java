@@ -23,7 +23,8 @@ public class UsedItemPostUpdateTradeStatusServiceImpl implements UsedItemPostUpd
 
 	@Override
 	public void updateTradeStatus(String authId, String postId, String purchaserId, TradeStatus tradeStatus) {
-		UsedItemPost usedItemPost = this.usedItemPostRepository.findById(UsedItemPostId.of(postId)).orElseThrow(() -> new NoSearchPostException());
+		UsedItemPost usedItemPost = this.usedItemPostRepository.findById(UsedItemPostId.of(postId)).orElseThrow(
+				NoSearchPostException::new);
 
 		if (usedItemPost.validateSellerId(authId)) {
 			if (usedItemPost.getTradeStatus().equals(TradeStatus.UNCHANGEABLE)) {
@@ -40,7 +41,8 @@ public class UsedItemPostUpdateTradeStatusServiceImpl implements UsedItemPostUpd
 
 	@Override
 	public void updateTradeStatusUnchangeable(String authId, String postId) {
-		UsedItemPost usedItemPost = this.usedItemPostRepository.findById(UsedItemPostId.of(postId)).orElseThrow(() -> new NoSearchPostException());
+		UsedItemPost usedItemPost = this.usedItemPostRepository.findById(UsedItemPostId.of(postId)).orElseThrow(
+				NoSearchPostException::new);
 		
 		if (usedItemPost.validateSellerId(authId)) {
 			if (usedItemPost.getTradeStatus().equals(TradeStatus.FINISH)) {

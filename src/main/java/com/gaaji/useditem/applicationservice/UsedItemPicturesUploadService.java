@@ -6,6 +6,7 @@ import com.gaaji.useditem.domain.UsedItemPictureId;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.exception.BothSizeDoseNotMatchedException;
+import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +30,7 @@ public class UsedItemPicturesUploadService {
         List<UsedItemPicture> pictures = createUsedItemPictures(files);
 
         UsedItemPost usedItemPost = usedItemPostRepository.findByPostId(UsedItemPostId.of(postId))
-                .orElseThrow();
+                .orElseThrow(NoSearchPostException::new);
         usedItemPost.addPictures(pictures);
 
     }
@@ -41,7 +42,7 @@ public class UsedItemPicturesUploadService {
 
         List<UsedItemPicture> pictures = createUsedItemPictures(newFiles);
         UsedItemPost usedItemPost = usedItemPostRepository.findByPostId(UsedItemPostId.of(postId))
-                .orElseThrow();
+                .orElseThrow(NoSearchPostException::new);
         usedItemPost.addPictures(pictures,indexes);
 
     }

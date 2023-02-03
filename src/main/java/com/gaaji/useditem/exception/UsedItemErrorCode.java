@@ -29,7 +29,7 @@ public enum UsedItemErrorCode implements ErrorCode {
     INPUT_NULL_DATA_ON_ADDRESS(HttpStatus.INTERNAL_SERVER_ERROR, "u-0007",
             "중고거래 데이터 생성 과정에서 Town.address에 Null이 입력되었습니다."),
 
-    NO_SEARCH_POST_EXCEPTION(HttpStatus.NOT_ACCEPTABLE, "u-0008",
+    NO_SEARCH_POST_EXCEPTION(HttpStatus.NOT_FOUND, "u-0008",
     		"해당하는 중고거래글을 찾지 못했습니다."),
     NO_MATCH_AUTH_ID_AND_SELLER_ID(HttpStatus.UNAUTHORIZED, "u-0009",
     		"유저 정보(Id)가 작성자 정보(Id)와 일치하지 않습니다."),
@@ -39,7 +39,7 @@ public enum UsedItemErrorCode implements ErrorCode {
             "JSON 파싱 과정에서 오류가 발생"),
 
 
-    No_Search_Post_Counter_Exception(HttpStatus.NOT_ACCEPTABLE, "u-0012",
+    NO_SEARCH_POST_COUNTER_EXCEPTION(HttpStatus.NOT_ACCEPTABLE, "u-0012",
             "해당하는 중고거래 조회 정보를 찾지 못했습니다."),
     RESERVATION_STATUS_CHANGE_PRICE(HttpStatus.BAD_REQUEST,"u-0013","예약 중엔 가격을 변경할 수 없습니다."),
 

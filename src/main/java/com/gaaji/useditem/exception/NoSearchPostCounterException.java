@@ -1,11 +1,11 @@
 package com.gaaji.useditem.exception;
 
-import static com.gaaji.useditem.exception.UsedItemErrorCode.No_Search_Post_Counter_Exception;;
+import static com.gaaji.useditem.exception.UsedItemErrorCode.NO_SEARCH_POST_COUNTER_EXCEPTION;;
 
 public class NoSearchPostCounterException extends AbstractApiException {
 
 	public NoSearchPostCounterException() {
-		super(No_Search_Post_Counter_Exception);
+		super(NO_SEARCH_POST_COUNTER_EXCEPTION);
 	}
 
 }

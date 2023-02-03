@@ -58,7 +58,8 @@ public class UsedItemPostListRetriveServiceImpl implements UsedItemPostListRetri
 	private List<PostListRetirveResponse> getPostListRetirveResponse(List<PreviewPost> previewPostList) {
 		List<PostListRetirveResponse> postListRetirveResponseList = new ArrayList<PostListRetirveResponse>();
 		for(PreviewPost previewPost : previewPostList) {
-			PreviewPostCount previewPostCount = this.usedItemPostCounterRepository.findPreviewCountByPostId(previewPost.getPostId()).orElseThrow(() -> new NoSearchPostCounterException());
+			PreviewPostCount previewPostCount = this.usedItemPostCounterRepository.findPreviewCountByPostId(previewPost.getPostId()).orElseThrow(
+					NoSearchPostCounterException::new);
 			PostListRetirveResponse postListRetirveResponse = PostListRetirveResponse.of(previewPost, previewPostCount);
 			postListRetirveResponseList.add(postListRetirveResponse);
 		}
@@ -70,7 +71,7 @@ public class UsedItemPostListRetriveServiceImpl implements UsedItemPostListRetri
 	public List<PostListRetirveResponse> retriveUsedItemMyPostList(String authId) {
                         
         List<PreviewPost> previewPostList = this.usedItemPostRepository.findByauthId(authId);
-        if(previewPostList.size() > 0) {
+        if(!previewPostList.isEmpty()) {
         	return getPostListRetirveResponse(previewPostList);
         } else {
         	return null;
