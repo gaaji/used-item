@@ -8,6 +8,7 @@ import com.gaaji.useditem.controller.dto.PostRetrieveResponse;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
+import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class UsedItemPostRetrieveService {
     public PostRetrieveResponse retrievePost(String postId, String authId) {
 
         UsedItemPost usedItemPost = usedItemPostRepository.findByPostId(UsedItemPostId.of(postId))
-                .orElseThrow();
+                .orElseThrow(NoSearchPostException::new);
         UsedItemPostCounter counter = usedItemPostViewCountIncreaseService.retrievePost(
                 UsedItemPostId.of(postId));
 
