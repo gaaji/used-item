@@ -67,4 +67,8 @@ public class UsedItemPostCounter {
     public int getChatCount() {
         return counter.getChatCount();
     }
+
+	public void editInterestCount(int i) {
+		this.counter.editInterestCount(i);
+	}
 }

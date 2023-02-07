@@ -41,4 +41,7 @@ public class Counter {
     public int hashCode() {
         return Objects.hash(suggestCount, interestCount, viewCount, chatCount);
     }
+	public void editInterestCount(int i) {
+		this.interestCount = this.interestCount + i;
+	}
 }
