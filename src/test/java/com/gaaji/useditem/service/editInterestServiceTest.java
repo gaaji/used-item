@@ -43,7 +43,7 @@ public class editInterestServiceTest {
 		counter = this.jpaUsedItemPostCounterRepository.findById(UsedItemPostId.of("foo")).orElseThrow();
 		 assertThat(counter.getInterestCount()).isEqualTo(i);
 		}
-        assertThatThrownBy(()->this.jpaUsedItemPostCounterRepository.findById(UsedItemPostId.of("foo1"))).isInstanceOf(NoSearchPostCounterException.class);
+        assertThatThrownBy(()->this.usedItemPostInterestCountEditService.editInterestCount("foo1",1)).isInstanceOf(NoSearchPostCounterException.class);
 
     }
 
