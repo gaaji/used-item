@@ -26,6 +26,8 @@ public interface UsedItemPostRepository {
 
 	List<PreviewPost> findByauthId(String authId);
 
+	Boolean existById(UsedItemPostId postId);
+
 //    Optional<UsedItemPost> findByPicture
 
 
