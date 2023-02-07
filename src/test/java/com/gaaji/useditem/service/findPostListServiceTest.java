@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -49,6 +50,12 @@ public class findPostListServiceTest {
 	JpaUsedItemPostRepository jpaUsedItemPostRepository;
 	@Autowired
 	JpaUsedItemPostCounterRepository jpaUsedItemPostCounterRepository;
+
+	@BeforeEach
+	void beforeEach(){
+		jpaUsedItemPostRepository.deleteAll();;
+		jpaUsedItemPostCounterRepository.deleteAll();;
+	}
 
 	@Test
 	void 조회리스트서비스() throws Exception {
