@@ -47,4 +47,10 @@ public class FakeUsedItemPostRepository implements UsedItemPostRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Boolean existById(UsedItemPostId postId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
