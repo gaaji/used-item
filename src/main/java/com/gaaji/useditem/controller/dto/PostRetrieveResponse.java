@@ -37,15 +37,15 @@ public class PostRetrieveResponse {
     private double sellerMannerTemperature;
     private Boolean isMine;
     private TradeStatus tradeStatus;
+    private Boolean isInterested;
 
 
     private List<String> picturesUrl;
 
     private PostRetrieveResponse(UsedItemPost post, UsedItemPostCounter counter, RetrieveResponse seller,
-            String authId){
+            String authId,boolean isInterested){
         this.postId = post.getUsedItemPostId();
         this.suggestCount = counter.getSuggestCount();
-        this.interestCount = counter.getInterestCount();
         this.viewCount = counter.getViewCount();
         this.chatCount = counter.getChatCount();
         this.title = post.getTitle();
@@ -67,11 +67,16 @@ public class PostRetrieveResponse {
         this.picturesUrl = post.getPicturesUrl();
         this.tradeStatus = post.getTradeStatus();
         this.sellerProfilePictureUrl = seller.getPictureUrl();
-
+        this.isInterested = isInterested;
+        this.interestCount = counter.getInterestCount();
+        if (isInterested && counter.getInterestCount() == 0) {
+            this.interestCount = 1;
+        }
     }
 
-    public static PostRetrieveResponse of (UsedItemPost post, UsedItemPostCounter counter, RetrieveResponse seller, String authId){
-        return new PostRetrieveResponse(post, counter, seller, authId );
+    public static PostRetrieveResponse of (UsedItemPost post, UsedItemPostCounter counter, RetrieveResponse seller, String authId
+    , boolean isInterested){
+        return new PostRetrieveResponse(post, counter, seller, authId , isInterested);
 
     }
 

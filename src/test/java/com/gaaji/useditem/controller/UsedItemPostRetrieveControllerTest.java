@@ -42,14 +42,55 @@ class UsedItemPostRetrieveControllerTest {
     UsedItemPostRetrieveService usedItemPostRetrieveService;
 
     @Test
-    void 정상_글내용보기() throws Exception {
+    void 정상_글내용보기_관심O() throws Exception {
         //given
         given(usedItemPostRetrieveService.retrievePost(anyString(), anyString()))
                 .willReturn(PostRetrieveResponse.of(UsedItemPost.of(UsedItemPostId.of("foo"),
                         SellerId.of("foo"), Post.of("foo","bar","foobar")
                 , Price.of(10000000L), true, WishPlace.of("","","")
                 , Town.of("foo","bar")), UsedItemPostCounter.of(UsedItemPostId.of("foo"), Counter.of())
-                , new RetrieveResponse("foo", "익명","foo",36.5), "foo"));
+                , new RetrieveResponse("foo", "익명","foo",36.5), "foo", true));
+
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.get("/posts/123")
+                        .header(HttpHeaders.AUTHORIZATION, "foo")
+                        .header("X-TOWN-TOKEN", "bar"))
+                //then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.postId").value("foo"))
+                .andExpect(jsonPath("$.viewCount").value(0))
+                .andExpect(jsonPath("$.chatCount").value(0))
+                .andExpect(jsonPath("$.interestCount").value(1))
+                .andExpect(jsonPath("$.suggestCount").value(0))
+                .andExpect(jsonPath("$.title").value("foo"))
+                .andExpect(jsonPath("$.contents").value("bar"))
+                .andExpect(jsonPath("$.category").value("foobar"))
+                .andExpect(jsonPath("$.isHide").value(false))
+                .andExpect(jsonPath("$.price").value(10000000))
+                .andExpect(jsonPath("$.canSuggest").value(true))
+                .andExpect(jsonPath("$.wishX").value(""))
+                .andExpect(jsonPath("$.wishY").value(""))
+                .andExpect(jsonPath("$.wishText").value(""))
+                .andExpect(jsonPath("$.townId").value("foo"))
+                .andExpect(jsonPath("$.townAddress").value("bar"))
+                .andExpect(jsonPath("$.sellerId").value("foo"))
+                .andExpect(jsonPath("$.sellerNickname").value("익명"))
+                .andExpect(jsonPath("$.sellerMannerTemperature").value(36.5))
+                .andExpect(jsonPath("$.isMine").value(true))
+                .andExpect(jsonPath("$.tradeStatus").value(TradeStatus.SELLING.name()))
+                .andExpect(jsonPath("$.sellerProfilePictureUrl").value("foo"))
+                .andExpect(jsonPath("$.isInterested").value(true))
+                .andDo(print());
+    }
+    @Test
+    void 정상_글내용보기_관심X() throws Exception {
+        //given
+        given(usedItemPostRetrieveService.retrievePost(anyString(), anyString()))
+                .willReturn(PostRetrieveResponse.of(UsedItemPost.of(UsedItemPostId.of("foo"),
+                                SellerId.of("foo"), Post.of("foo","bar","foobar")
+                                , Price.of(10000000L), true, WishPlace.of("","","")
+                                , Town.of("foo","bar")), UsedItemPostCounter.of(UsedItemPostId.of("foo"), Counter.of())
+                        , new RetrieveResponse("foo", "익명","foo",36.5), "foo", false));
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/posts/123")
@@ -79,12 +120,8 @@ class UsedItemPostRetrieveControllerTest {
                 .andExpect(jsonPath("$.isMine").value(true))
                 .andExpect(jsonPath("$.tradeStatus").value(TradeStatus.SELLING.name()))
                 .andExpect(jsonPath("$.sellerProfilePictureUrl").value("foo"))
+                .andExpect(jsonPath("$.isInterested").value(false))
                 .andDo(print());
-
-
-
-
-
     }
 
 
