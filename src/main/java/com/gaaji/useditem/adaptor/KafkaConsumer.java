@@ -15,8 +15,12 @@ public class KafkaConsumer {
 	private final UsedItemPostInterestCountEditService UsedItemPostInterestCountEditService;
 	
 	@KafkaListener(topics = "used-item-increase-interest-count", groupId = "used-item")
-	 public void listen(String postId) {
+	 public void interestCountListen(String postId) {
        this.UsedItemPostInterestCountEditService.editInterestCount(postId, 1);
     }
 
+	@KafkaListener(topics = "used-item-decrease-interest-count", groupId = "used-item")
+	 public void interestCountDecreaseListen(String postId) {
+      this.UsedItemPostInterestCountEditService.editInterestCount(postId, -1);
+   }
 }
