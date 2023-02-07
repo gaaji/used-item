@@ -49,6 +49,11 @@ public class UsedItemPostRepositoryImpl implements
 		return jpaUsedItemPostRepository.findByauthId(authId);
 	}
 
+	@Override
+	public Boolean existById(UsedItemPostId postId) {
+		return jpaUsedItemPostRepository.existsById(postId);
+	}
+
 
 
 }
