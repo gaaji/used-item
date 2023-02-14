@@ -3,6 +3,7 @@ package com.gaaji.useditem.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -76,9 +77,21 @@ public class findPostListServiceTest {
 
 
 		TownToken townToken = new TownToken("townID", true);
-	
-		 List<PostListRetirveResponse> list1 = usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), 0);
-		 List<PostListRetirveResponse> list2 = usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), 1);
+		LocalDateTime localDateTime = LocalDateTime.now();
+		
+
+		
+		 UsedItemPost usedItemPost = UsedItemPost.of(UsedItemPostId.of("foo10"), SellerId.of("bar"),
+					Post.of("title", "contents", "category"), Price.of(1000L), true, null, Town.of("townID", "address"));
+
+			UsedItemPostCounter counter = UsedItemPostCounter.of(UsedItemPostId.of("foo10"), Counter.of());
+			// when
+			jpaUsedItemPostRepository.save(usedItemPost);
+			this.jpaUsedItemPostCounterRepository.save(counter);
+			
+			List<PostListRetirveResponse> list1 = usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), localDateTime, 0);
+
+			List<PostListRetirveResponse> list2 = usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), localDateTime, 1);
 		
 		 
 		 
@@ -118,8 +131,8 @@ public class findPostListServiceTest {
 		jpaUsedItemPostRepository.save(usedItemPost);
 
 		TownToken townToken = new TownToken("townID", true);
-
-		 assertThatThrownBy(()->usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), 0)).isInstanceOf(NoSearchPostCounterException.class);
+		LocalDateTime localDateTime = LocalDateTime.now();
+		 assertThatThrownBy(()->usedItemPostListRetriveService.retriveUsedItemPostList( new ObjectMapper().writeValueAsString(townToken), localDateTime, 0)).isInstanceOf(NoSearchPostCounterException.class);
 		 assertThatThrownBy(()->usedItemPostListRetriveService.retriveUsedItemMyPostList("bar")).isInstanceOf(NoSearchPostCounterException.class);
 
 	}

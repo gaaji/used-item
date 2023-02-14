@@ -5,6 +5,8 @@ import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
+
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,12 +39,6 @@ public class FakeUsedItemPostRepository implements UsedItemPostRepository {
     }
 
 	@Override
-	public List<PreviewPost> findByTownId(String townId, PageRequest pageRequest) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<PreviewPost> findByauthId(String authId) {
 		// TODO Auto-generated method stub
 		return null;
@@ -50,6 +46,12 @@ public class FakeUsedItemPostRepository implements UsedItemPostRepository {
 
 	@Override
 	public Boolean existById(UsedItemPostId postId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PreviewPost> findByTownId(String townId, PageRequest pageRequest, LocalDateTime requestTime) {
 		// TODO Auto-generated method stub
 		return null;
 	}

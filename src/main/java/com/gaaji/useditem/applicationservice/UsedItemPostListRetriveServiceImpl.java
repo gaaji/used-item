@@ -1,5 +1,6 @@
 package com.gaaji.useditem.applicationservice;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +16,7 @@ import com.gaaji.useditem.controller.dto.PostListRetirveResponse;
 import com.gaaji.useditem.controller.dto.PreviewPost;
 import com.gaaji.useditem.controller.dto.PreviewPostCount;
 import com.gaaji.useditem.controller.dto.TownToken;
-import com.gaaji.useditem.domain.UsedItemPost;
-import com.gaaji.useditem.domain.UsedItemPostId;
 import com.gaaji.useditem.exception.NoSearchPostCounterException;
-import com.gaaji.useditem.exception.NoSearchPostException;
 import com.gaaji.useditem.repository.UsedItemPostCounterRepository;
 import com.gaaji.useditem.repository.UsedItemPostRepository;
 
@@ -33,7 +31,7 @@ public class UsedItemPostListRetriveServiceImpl implements UsedItemPostListRetri
 	private final UsedItemPostCounterRepository usedItemPostCounterRepository;
 	
 	@Override
-	public List<PostListRetirveResponse> retriveUsedItemPostList(String townHeader, int pageNum) {
+	public List<PostListRetirveResponse> retriveUsedItemPostList(String townHeader, LocalDateTime requestTime, int pageNum) {
 		
 		TownToken townToken = null;
         try {
@@ -46,7 +44,7 @@ public class UsedItemPostListRetriveServiceImpl implements UsedItemPostListRetri
         
         townToken.getTownId();
         
-        List<PreviewPost> previewPostList = this.usedItemPostRepository.findByTownId(townToken.getTownId(),pageRequest);
+        List<PreviewPost> previewPostList = this.usedItemPostRepository.findByTownId(townToken.getTownId(),pageRequest, requestTime);
         if(previewPostList.size() > 0) {
         	return getPostListRetirveResponse(previewPostList);
         } else {

@@ -5,6 +5,7 @@ import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import java.util.Optional;
@@ -18,8 +19,8 @@ public interface JpaUsedItemPostRepository extends JpaRepository<UsedItemPost, U
 	Long deleteBySellerIdAndPostId(SellerId sellerId, UsedItemPostId PostId);
 
 	@Query("select new com.gaaji.useditem.controller.dto.PreviewPost(u.postId.id, u.representPictureUrl ,u.post.title, u.town.address, u.post.createdAt, u.price.price, u.tradeStatus, u.post.isHide) from UsedItemPost u "
-            + "where u.town.id =:townId ")
-	List<PreviewPost> findByTownId(@Param("townId") String townId, PageRequest pageRequest);
+            + "where u.town.id =:townId and u.post.createdAt <:createdAt")
+	List<PreviewPost> findByTownId(@Param("townId") String townId, @Param("createdAt") LocalDateTime requestTime, PageRequest pageRequest);
 	
 	
 	@Query("select new com.gaaji.useditem.controller.dto.PreviewPost(u.postId.id, u.representPictureUrl ,u.post.title, u.town.address, u.post.createdAt, u.price.price, u.tradeStatus, u.post.isHide) from UsedItemPost u "

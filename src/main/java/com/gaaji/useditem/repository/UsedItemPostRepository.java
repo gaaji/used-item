@@ -4,6 +4,8 @@ import com.gaaji.useditem.controller.dto.PreviewPost;
 import com.gaaji.useditem.domain.SellerId;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -22,7 +24,7 @@ public interface UsedItemPostRepository {
 
 	Optional<UsedItemPost> findById(UsedItemPostId postId);
 
-	List<PreviewPost> findByTownId(String townId, PageRequest pageRequest);
+	List<PreviewPost> findByTownId(String townId, PageRequest pageRequest, LocalDateTime requestTime);
 
 	List<PreviewPost> findByauthId(String authId);
 

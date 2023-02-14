@@ -2,15 +2,10 @@ package com.gaaji.useditem.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -29,8 +24,6 @@ import com.gaaji.useditem.domain.TradeStatus;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostCounter;
 import com.gaaji.useditem.domain.UsedItemPostId;
-import com.gaaji.useditem.repository.JpaUsedItemPostCounterRepository;
-import com.gaaji.useditem.repository.JpaUsedItemPostRepository;
 
 @DataJpaTest
 @Transactional
@@ -57,7 +50,10 @@ public class findPostListJpaTest {
 
 		PageRequest pageRequest = PageRequest.of(0, 8, Sort.by("post.createdAt").descending());
 
-		List<PreviewPost> previewPostList = this.jpaUsedItemPostRepository.findByTownId("townID", pageRequest);
+		LocalDateTime localDateTime = LocalDateTime.now();
+		
+		
+		List<PreviewPost> previewPostList = this.jpaUsedItemPostRepository.findByTownId("townID", localDateTime, pageRequest);
 		if (previewPostList.size() > 0) {
 
 			PreviewPost post = previewPostList.get(0);
