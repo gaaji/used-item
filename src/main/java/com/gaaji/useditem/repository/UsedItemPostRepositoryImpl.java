@@ -3,6 +3,7 @@ package com.gaaji.useditem.repository;
 import com.gaaji.useditem.domain.UsedItemPost;
 import com.gaaji.useditem.domain.UsedItemPostId;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +41,8 @@ public class UsedItemPostRepositoryImpl implements
 	}
 
 	@Override
-	public List<PreviewPost> findByTownId(String townId, PageRequest pageRequest) {
-		return jpaUsedItemPostRepository.findByTownId(townId, pageRequest);
+	public List<PreviewPost> findByTownId(String townId, PageRequest pageRequest, LocalDateTime requestTime) {
+		return jpaUsedItemPostRepository.findByTownId(townId, requestTime, pageRequest);
 	}
 
 	@Override
