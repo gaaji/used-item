@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+## secret
+src/main/resources/secret.yml
+src/main/resources/kafka.yml
